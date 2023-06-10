@@ -27,7 +27,8 @@ TEST		= test_lib
 #               SOURCES              #
 # ################################## #
 ASM_DIR		= src
-ASM_FILES	= ft_strlen.s			
+ASM_FILES	=	ft_strlen.s	\
+				ft_read.s 
 SRCS		= $(patsubst %, $(ASM_DIR)/%, $(ASM_FILES))
 
 # ################################## #
@@ -40,8 +41,8 @@ OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 # ################################## #
 #                FLAGS               #
 # ################################## #
-ASM_FLAGS	= -felf64 -wall -g -O0 #--gprefix _
-C_FLAGS		= -Wall -Werror -Wextra -Os -g
+ASM_FLAGS	= -felf64 -wall -g  #--gprefix _
+C_FLAGS		=  -g
 
 # ################################## #
 #                RULES               #
