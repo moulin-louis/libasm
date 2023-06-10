@@ -40,12 +40,13 @@ OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 # ################################## #
 #                FLAGS               #
 # ################################## #
-ASM_FLAGS		= -felf64 -wall -g -O0 --gprefix _
+ASM_FLAGS	= -felf64 -wall -g -O0 #--gprefix _
+C_FLAGS		= -Wall -Werror -Wextra -Os -g
 
 # ################################## #
 #                RULES               #
 # ################################## #
-all:	$(NAME) $(TEST)
+all:	fclean $(NAME) $(TEST)
 
 $(O_DIR):
 		$(MKDIR) $(O_DIR)
@@ -57,18 +58,18 @@ $(NAME): $(O_DIR) $(OBJS)
 		ar rcs ${NAME} ${OBJS}
 
 $(TEST): $(O_DIR_TEST) $(OBJS_TEST)
-		gcc -Wall -Werror -Wextra ./src_test/main.c libasm.a
+		gcc ./src_test/main.c ${C_FLAGS} libasm.a -o ${TEST}
 
 # ################################## #
 #                CLEAN               #
 # ################################## #
 clean:
-			$(RM) ${NAME}
-			${RM} ${NAME_TEST}
+			@$(RM) ${O_DIR}
+			@${RM} ${O_DIR_TEST}
 
 fclean:	clean
-			$(RM) $(O_DIR)
-			${RM} ${O_DIR_TEST}
+			@$(RM) $(NAME)
+			@${RM} ${TEST}
 
 re:			fclean all
 

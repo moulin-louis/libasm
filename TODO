@@ -1,0 +1,3 @@
+- ft_strlen:
+    - fix potential segfault with null value, 
+    - optimize by reading 32 bits by 32 bits using memory allignement
