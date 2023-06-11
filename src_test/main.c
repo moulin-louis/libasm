@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <stdlib.h>
 // int test_ft_strlen() {
 //     int x = 0;
 //     if (strlen("") != ft_strlen(""))
@@ -19,12 +20,6 @@
 //     return (0);
 // }
 
-int foo( int a, int b, int c) {
-    int x = a;
-    int y = b;
-    int z = c;
-    return (x + y + z);
-}
 int main(void) {
     // printf("Testing ft_strlen....\n");
     // if (test_ft_strlen()) {
@@ -35,11 +30,13 @@ int main(void) {
     // char str[4];
     // int size = 4;
     // read(1, str, size);
-    char str[3];
-    int fd = open("./Makefile", O_RDONLY);
-    ft_read(fd, str, 2);
+    char* str = calloc(1024, 1);
+    int fd = open("./TODO", O_RDONLY);
+    int x = ft_read(fd, str, 1024);
+    printf("x = %d\n", x);
     close(fd);
-    write(1, str, 3);
+    write(1, str, 1024);
+    free(str);
 }
 
 

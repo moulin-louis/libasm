@@ -41,7 +41,7 @@ OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 # ################################## #
 #                FLAGS               #
 # ################################## #
-ASM_FLAGS	= -felf64 -wall -g  #--gprefix _
+ASM_FLAGS	= -felf64 -wall -g
 C_FLAGS		=  -g
 
 # ################################## #
@@ -58,7 +58,7 @@ $(O_DIR)/%.o: $(ASM_DIR)/%.s
 $(NAME): $(O_DIR) $(OBJS)
 		ar rcs ${NAME} ${OBJS}
 
-$(TEST): $(O_DIR_TEST) $(OBJS_TEST)
+$(TEST):
 		gcc ./src_test/main.c ${C_FLAGS} libasm.a -o ${TEST}
 
 # ################################## #
