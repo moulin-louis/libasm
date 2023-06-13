@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
+#include <errno.h>
 // int test_ft_strlen() {
 //     int x = 0;
 //     if (strlen("") != ft_strlen(""))
@@ -27,15 +28,9 @@ int main(void) {
     // } else {
     //     printf("Test ft_strlen passed!\n");
     // // }
-    // char str[4];
-    // int size = 4;
-    // read(1, str, size);
     // char* str = calloc(1024, 1);
-    char str[1024];
     // int fd = open("./TODfdfs", O_RDONLY);
-    // int fd = 0;
-    int x = ft_read(65, str, 1024);
-    printf(" x = %d\n", x);
+    // int x = ft_read(65, str, 1024);
     // close(fd);
     // write(1, str, 1024);
     // free(str);

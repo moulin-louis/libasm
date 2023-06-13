@@ -10,14 +10,15 @@ ft_read: ; long ft_read(int fd, char *buff, unsignedd long buff_size)
 	; buff is already where it should be, inside $rsi register
 	movsxd rdx, edx ;find register to load (load buff_size into rdx register)
 	syscall ; calling the syscall (here read)
+	cmp eax, 0x00
 	jl .error_handle
 	pop rbp
 	ret
 .error_handle:
 	neg eax
-	movsxd r11, eax
+	mov edx, eax
 	call __errno_location
-	mov [eax], r11
+	mov [eax], edx
 	mov eax, -0x01
 	pop rbp
 	ret
