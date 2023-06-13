@@ -30,13 +30,15 @@ int main(void) {
     // char str[4];
     // int size = 4;
     // read(1, str, size);
-    char* str = calloc(1024, 1);
-    int fd = open("./TODO", O_RDONLY);
-    int x = ft_read(fd, str, 1024);
-    printf("x = %d\n", x);
-    close(fd);
-    write(1, str, 1024);
-    free(str);
+    // char* str = calloc(1024, 1);
+    char str[1024];
+    // int fd = open("./TODfdfs", O_RDONLY);
+    // int fd = 0;
+    int x = ft_read(65, str, 1024);
+    printf(" x = %d\n", x);
+    // close(fd);
+    // write(1, str, 1024);
+    // free(str);
 }
 
 

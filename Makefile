@@ -56,10 +56,10 @@ $(O_DIR)/%.o: $(ASM_DIR)/%.s
 		$(ASM_COMP) ${ASM_FLAGS} $< -o $@
 
 $(NAME): $(O_DIR) $(OBJS)
-		ar rcs ${NAME} ${OBJS}
+		ar -rcs ${NAME} ${OBJS}
 
 $(TEST):
-		gcc ./src_test/main.c ${C_FLAGS} libasm.a -o ${TEST}
+		clang ./src_test/main.c ${C_FLAGS} -L. -lasm -o ${TEST}
 
 # ################################## #
 #                CLEAN               #
