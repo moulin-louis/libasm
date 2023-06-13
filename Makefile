@@ -28,6 +28,9 @@ TEST		= test_lib
 # ################################## #
 ASM_DIR		= src
 ASM_FILES	=	ft_read.s	\
+				ft_strcmp.s	\
+				ft_strcpy.s \
+				ft_strdup.s	\
 				ft_strlen.s \
 				ft_write.s
 
@@ -44,7 +47,7 @@ OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 #                FLAGS               #
 # ################################## #
 ASM_FLAGS	= -felf64 -wall -g
-C_FLAGS		=  -g -O0  -Wall -Wextra -Werror
+C_FLAGS		=  -g -O0
 
 # ################################## #
 #                RULES               #
