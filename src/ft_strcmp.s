@@ -6,18 +6,18 @@ ft_strcmp: ;int($eax) strcmp( char *s1($rdi), char *s2($rsi))
 .start_loop:
 	mov ah, byte [rdi] ; load one char of rdi
 	mov al, byte [rsi] ; load one char of rsi
-	cmp ah, al
-	jne .end_loop
-	cmp ah, 0x0
-	je .end_loop
-	cmp al, 0x0
-	je .end_loop
-	inc rdi
-	inc rsi
-	jmp .start_loop
+	cmp ah, al ; compare both chars
+	jne .end_loop ; if not equal, end the loop
+	cmp ah, 0x0 ; compare the first char loaded to 0
+	je .end_loop ; if equal , end the loop
+	cmp al, 0x0 ; compare the 2nd char loaded to 0
+	je .end_loop ; if equal, end the loop
+	inc rdi ; increment rsi ptr
+	inc rsi ; increment rdi ptr
+	jmp .start_loop ; start over the loop
 .end_loop:
 	; return division of last two digits
-	sub ah, al
-	movsx eax, ah
+	sub ah, al ; substract to return the wright value
+	movsx eax, ah ; move the result inside eax but keeping the sign bytes
 	pop rbp ; pop the stack
 	ret ; return 
