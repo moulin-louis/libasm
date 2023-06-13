@@ -12,5 +12,4 @@ ft_strlen:
 		mov rax, rdi ; store it in rax
 		ret ; exiting the function
 
- section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning
  

@@ -31,9 +31,21 @@ int main(void) {
     // char* str = calloc(1024, 1);
     // int fd = open("./TODfdfs", O_RDONLY);
     // int x = ft_read(65, str, 1024);
+    // if (x == -1)
+        // return (1, printf("Error: %s\n", strerror(errno)));
     // close(fd);
     // write(1, str, 1024);
     // free(str);
+    // int fd = open("./TEST_FT_WRITE", O_WRONLY | O_CREAT, 0644);
+    // if (fd == -1)
+        // return (printf("Error: %s\n", strerror(errno)), 1);
+    char str[1024];
+    int retval = ft_read(6, str, 150);
+    printf("retval = %d\n", retval);
+    printf("errno = %d\n", errno);
+    return (retval);
+        // return (printf("Error: %s\n", strerror(errno)), close(fd), 1);
+    // close(fd);
 }
 
 

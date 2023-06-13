@@ -1,0 +1,39 @@
+Already logging to gdb_log.txt.
++show logging 
+logging debugredirect:  off: Debug output will go to both the screen and the log file.
+logging enabled:  on: Logging is enabled.
+logging file:  The current logfile is "gdb_log.txt".
+logging overwrite:  off: Logging appends to the log file.
+logging redirect:  off: Output will go to both the screen and the log file.
++flush
+Warning: 'flushregs', an alias for the command 'maintenance flush register-cache', is deprecated.
+Use 'maintenance flush register-cache'.
+
+Register cache flushed.
++maintenance flush register-cache 
+Register cache flushed.
++set pretty print on
+No symbol "pretty" in current context.
++set pretty print on
+No symbol "pretty" in current context.
++bt
+No stack.
++run
+Starting program: /mnt/nfs/homes/loumouli/libasm/test_lib 
+[Thread debugging using libthread_db enabled]
+Using host libthread_db library "/lib/x86_64-linux-gnu/libthread_db.so.1".
+
+Program received signal SIGSEGV, Segmentation fault.
+0x00000000004011d1 in ft_read.error_handle ()
++bt
+#0  0x00000000004011d1 in ft_read.error_handle ()
+#1  0x00007fffffffd6f0 in ?? ()
+#2  0x0000000000401168 in main () at ./src_test/main.c:43
+Backtrace stopped: frame did not save the PC
++show logging 
+logging debugredirect:  off: Debug output will go to both the screen and the log file.
+logging enabled:  on: Logging is enabled.
+logging file:  The current logfile is "gdb_log.txt".
+logging overwrite:  off: Logging appends to the log file.
+logging redirect:  off: Output will go to both the screen and the log file.
++q
