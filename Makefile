@@ -44,7 +44,7 @@ OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 #                FLAGS               #
 # ################################## #
 ASM_FLAGS	= -felf64 -wall -g
-C_FLAGS		=  -ggdb -O0
+C_FLAGS		=  -g -O0  -Wall -Wextra -Werror
 
 # ################################## #
 #                RULES               #

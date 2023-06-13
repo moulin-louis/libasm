@@ -1,9 +1,9 @@
 #include "../inc/libasm.h"
 #include <stdio.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <stdlib.h>
+// #include <string.h>
+// #include <unistd.h>
+// #include <fcntl.h>
+// #include <stdlib.h>
 #include <errno.h>
 // int test_ft_strlen() {
 //     int x = 0;
@@ -39,8 +39,9 @@ int main(void) {
     // int fd = open("./TEST_FT_WRITE", O_WRONLY | O_CREAT, 0644);
     // if (fd == -1)
         // return (printf("Error: %s\n", strerror(errno)), 1);
+    *(__errno_location()) = 5;
     char str[1024];
-    int retval = ft_read(6, str, 150);
+    int retval = ft_read(1, str, 150);
     printf("retval = %d\n", retval);
     printf("errno = %d\n", errno);
     return (retval);

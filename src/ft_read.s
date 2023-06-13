@@ -17,7 +17,7 @@ ft_read: ; long ft_read(int fd($edi), char *buff($rsi), unsigned long buff_size(
 	neg eax ; make value in eax positive
 	mov edx, eax ; save eax inside edx
 	call __errno_location ; save errno location inside eax
-	mov [eax], edx ; change the value pointer by eax by edx
+	mov [rax], edx ; change the value pointer by eax by edx
 	mov eax, -0x01 ; change the return value with -1
 	pop rbp ; pop the stack
 	ret ; return 
