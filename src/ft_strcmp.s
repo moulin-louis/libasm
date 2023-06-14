@@ -21,3 +21,5 @@ ft_strcmp: ;int($eax) strcmp( char *s1($rdi), char *s2($rsi))
 	movsx eax, ah ; move the result inside eax but keeping the sign bytes
 	pop rbp ; pop the stack
 	ret ; return 
+
+section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning

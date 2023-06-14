@@ -22,3 +22,4 @@ ft_write: ; long ft_write(int fd($edi), void *buff($rsi), unsigned long buff_siz
 	pop rbp ; pop the stack
 	ret ; return 
 
+section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning

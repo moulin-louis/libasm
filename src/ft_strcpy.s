@@ -20,3 +20,5 @@ ft_strcpy: ; char *($rax) ft_strpcy(char *dest($rdi), const char *src($rsi));
 	mov rax, r11 ; move the save dest ptr to rax
 	pop rbp ; pop the stack
 	ret ; return 
+
+section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning

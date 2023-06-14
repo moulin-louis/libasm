@@ -22,3 +22,4 @@ ft_read: ; long ft_read(int fd($edi), char *buff($rsi), unsigned long buff_size(
 	pop rbp ; pop the stack
 	ret ; return 
 
+section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning

@@ -15,4 +15,4 @@ ft_strlen: ;unsigned long($rax) ft_strlen(const char *str($rdi))
 		pop rbp ; pop the stack
 		ret ; exiting the function
 
- 
+ section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning

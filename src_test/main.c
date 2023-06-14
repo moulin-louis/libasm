@@ -42,15 +42,16 @@ int main(void) {
     // printf("ft_strcmp: %d\n", retval_ft);
     // int retval_glibc = strcmp(str, str2);
     // printf("off strcmp: %d\n", retval_glibc);
-    char *dest = malloc(1024);
-    char src[] = "Salut les zamis\n";
-    ft_strcpy(dest, src);
+    // char *dest = malloc(1024);
+    // char src[] = "Salut les zamis\n";
+    // ft_strcpy(dest, src);
     // for (int i = 0;  i < 3; i++) {
     //     printf("i = %d\n", i);
     //     printf("dest[i] =  %c\n", dest[i]);
     // }
-    printf("dest = [%s]\n", dest);
-    free(dest);
+    // printf("dest = [%s]\n", dest);
+    // free(dest);
+    return (ft_strlen("test"));
     return (1);
 }
 

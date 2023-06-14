@@ -6,3 +6,5 @@ ft_strdup:
 	mov rbp, rsp ; update the base stack ptr
 	pop rbp ; pop the stack
 	ret ; return 
+
+section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning
