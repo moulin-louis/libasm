@@ -14,7 +14,7 @@
 #               COMMAND              #
 # ################################## #
 ASM_COMP	= nasm
-
+C_COMP		= gcc
 MKDIR		= mkdir -p
 RM			= rm -rf
 # ################################## #
@@ -46,7 +46,7 @@ OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 # ################################## #
 #                FLAGS               #
 # ################################## #
-ASM_FLAGS	= -felf64 -wall -g
+ASM_FLAGS	= -felf64 -wall -g -O0
 C_FLAGS		=  -g -O0
 
 # ################################## #
@@ -64,7 +64,7 @@ $(NAME): $(O_DIR) $(OBJS)
 		ar -rcs ${NAME} ${OBJS}
 
 $(TEST):
-		clang ./src_test/main.c ${C_FLAGS} -L. -lasm -o ${TEST}
+		${C_COMP} ./src_test/main.c ${C_FLAGS} -L. -lasm -o ${TEST}
 
 # ################################## #
 #                CLEAN               #
