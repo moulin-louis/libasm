@@ -1,3 +1,9 @@
+SRCS	=
+
+OBJS	= ${SRCS:.c=.o}
+
+SRCS_B	=
+
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
@@ -6,89 +12,120 @@
 #    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/13 13:30:11 by loumouli          #+#    #+#              #
-#    Updated: 2023/02/16 12:54:18 by loumouli         ###   ########.fr        #
+#    Updated: 2023/02/12 11:30:19 by loumouli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ################################## #
 #               COMMAND              #
 # ################################## #
-ASM_COMP	= nasm
-C_COMP		= gcc
+CC			= cc
 MKDIR		= mkdir -p
 RM			= rm -rf
+
 # ################################## #
 #              EXEC NAME             #
 # ################################## #
-NAME		= libasm.a
+NAME		= libft.a
 
-TEST		= test_lib
 # ################################## #
 #               SOURCES              #
 # ################################## #
-ASM_DIR		= src
-ASM_FILES	=	ft_read.s	\
-				ft_strcmp.s	\
-				ft_strcpy.s \
-				ft_strdup.s	\
-				ft_strlen.s \
-				ft_write.s
+C_DIR		= src
+C_FILES =	ft_atoi.c 			\
+			ft_calloc.c 		\
+			ft_isascii.c  		\
+			ft_bzero.c 			\
+			ft_isalnum.c 		\
+			ft_isalpha.c 		\
+			ft_isdigit.c 		\
+			ft_isprint.c 		\
+			ft_memchr.c 		\
+			ft_memcmp.c 		\
+			ft_memcpy.c 		\
+			ft_strdup.c 		\
+			ft_memmove.c 		\
+			ft_memset.c 		\
+			ft_strchr.c 		\
+			ft_strlcat.c 		\
+			ft_strlcpy.c 		\
+			ft_strlen.c 		\
+			ft_strncmp.c 		\
+			ft_strnstr.c 		\
+			ft_strrchr.c 		\
+			ft_tolower.c 		\
+			ft_toupper.c 		\
+			ft_substr.c 		\
+			ft_strjoin.c 		\
+			ft_strtrim.c 		\
+			ft_split.c 			\
+			ft_itoa.c 			\
+			ft_strmapi.c 		\
+			ft_striteri.c		\
+			ft_putchar_fd.c		\
+			ft_putstr_fd.c 		\
+			ft_putendl_fd.c 	\
+			ft_putnbr_fd.c		\
+			ft_lstadd_back.c	\
+			ft_lstadd_front.c	\
+			ft_lstclear.c		\
+			ft_lstdelone.c		\
+			ft_lstiter.c		\
+			ft_lstlast.c		\
+			ft_lstmap.c			\
+			ft_lstnew.c			\
+			ft_lstsize.c		\
+			clean_split.c		\
 
-SRCS		= $(patsubst %, $(ASM_DIR)/%, $(ASM_FILES))
+SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
+
 # ################################## #
 #               OBJECTS              #
 # ################################## #
 O_DIR		= objs
-O_FILES		= $(ASM_FILES:.s=.o)
+O_FILES		= $(C_FILES:.c=.o)
 OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
 
 # ################################## #
 #                FLAGS               #
 # ################################## #
-ASM_FLAGS	= -felf64 -wall -g -O0
-C_FLAGS		=  -g -O0
+CFLAGS		= -Wall -Wextra -Werror -g -MMD -O0
 
-
-LIBFT = libft.a
+# ################################## #
+#                INCLUDES            #
+# ################################## #
+CINCLUDES = -I ./inc
 # ################################## #
 #                RULES               #
 # ################################## #
-all:	fclean $(NAME) ${LIBFT} ${TEST}
+
+all:	$(NAME)
 
 $(O_DIR):
-		$(MKDIR) $(O_DIR)
+		@$(MKDIR) $(O_DIR)
 
-$(O_DIR)/%.o: $(ASM_DIR)/%.s
-		$(ASM_COMP) ${ASM_FLAGS} $< -o $@
+$(O_DIR)/%.o: $(C_DIR)/%.c
+		@$(CC)  $(CFLAGS) $(CINCLUDES) -c $< -o $@
+
+
 
 $(NAME): $(O_DIR) $(OBJS)
-		ar -rcs ${NAME} ${OBJS}
-
-$(TEST):
-		${C_COMP} ./src_test/main.c ${C_FLAGS} -L. -lasm -lft -o ${TEST}
-
-${LIBFT}:
-	@echo 'Compiling libft for perf comparaison...'
-	@make --no-print-directory -C ./libft
-	@cp ./libft/${LIBFT} .
+		@ar rcs ${NAME} ${OBJS}
 
 # ################################## #
 #                CLEAN               #
 # ################################## #
-clean:
-			@$(RM) ${O_DIR}
-			@${RM} ${O_DIR_TEST}
-			@make --no-print-directory -C ./libft clean
 
-fclean:	clean
-			@$(RM) $(NAME)
-			@${RM} ${TEST}
-			@${RM} ${LIBFT}
-			@make --no-print-directory -C ./libft fclean
+clean:
+		@$(RM) $(O_DIR)
+
+fclean: clean
+		@$(RM) $(NAME)
 
 re:			fclean all
 
-
 .PHONY: all clean fclean re
+
+-include ./objs/*.d
 
 .NOTPARALLEL:fclean

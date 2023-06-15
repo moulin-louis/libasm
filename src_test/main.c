@@ -5,6 +5,13 @@
 #include <fcntl.h>
 #include <stdlib.h>
 #include <errno.h>
+#include <sys/time.h>
+
+time_t	gettime(void) {
+	struct timeval	tv;
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
 
 // int test_ft_strlen() {
 //     int x = 0;
@@ -22,13 +29,36 @@
 //     return (0);
 // }
 
+void check_diff_perf(void) {
+    int nbr_run = 100000000;
+    time_t start = gettime();
+    for (int i = 0; i < nbr_run; i++)
+        strlen("test");
+    time_t end = gettime();
+    printf("strlen: %ldms\n", end - start);
+    start = gettime();
+    for (int i = 0; i < nbr_run; i++) {
+        ft_strlen("test");
+    }
+    end = gettime();
+    printf("ft_strlen: %ldms\n", end - start);
+    start = gettime();
+    for (int i = 0; i < nbr_run; i++) {
+        libft_ft_strlen("test");
+    }
+    end = gettime();
+    printf("ft_strlen: %ld\n", end - start);
+}
+
 int main(void) {
+    // time_t timestamp = gettime();
     // printf("Testing ft_strlen....\n");
     // if (test_ft_strlen()) {
     //     printf("Test ft_strlen failed...\n");
     // } else {
     //     printf("Test ft_strlen passed!\n");
     // }
+
     // char str[1024];
     // int ret_val = ft_read(0, str, 1023);
     // if (ret_val == -1)
@@ -56,9 +86,10 @@ int main(void) {
     // char *dest = ft_strdup(test);
     // printf("dest = [%s]\n", dest);
     // free(dest);
-    char str[1024];
-    ssize_t x = read(1, str, 1023);
-    str[x] = 0;
+    // char str[1024];
+    // ssize_t x = read(1, str, 1023);
+    // str[x] = 0;
+    check_diff_perf();
     return (0);
 }
 
