@@ -52,11 +52,9 @@ int main(void) {
     // printf("dest = [%s]\n", dest);
     // free(dest);
     // return (ft_strlen("test"));
-    char test[] = "Bonjour";
+    char test[] = "123";
     char *dest = ft_strdup(test);
-    dest[5] = 0;
     printf("dest = [%s]\n", dest);
-    // char *dest = malloc(strlen(test) + 1);
     free(dest);
     return (0);
 }
