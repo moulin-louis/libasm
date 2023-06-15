@@ -52,10 +52,13 @@ int main(void) {
     // printf("dest = [%s]\n", dest);
     // free(dest);
     // return (ft_strlen("test"));
-    char test[] = "123";
-    char *dest = ft_strdup(test);
-    printf("dest = [%s]\n", dest);
-    free(dest);
+    // char test[] = "123";
+    // char *dest = ft_strdup(test);
+    // printf("dest = [%s]\n", dest);
+    // free(dest);
+    char str[1024];
+    ssize_t x = read(1, str, 1023);
+    str[x] = 0;
     return (0);
 }
 

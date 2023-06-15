@@ -1,10 +1,5 @@
 - ft_strlen:
-    - fix potential segfault with null value, 
     - optimize by reading 32 bits by 32 bits using memory allignement
-- ft_strcpy
-- ft_strcmp
-- ft_write
-- ft_read
-- ft_strdup
-
+- use SSE2 for strlen, cmp
+- make a lot of test for each function
 - compare libasm with libft at a perf level
