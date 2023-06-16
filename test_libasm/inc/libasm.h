@@ -1,24 +1,5 @@
 #ifndef         LIBASM_H
 #define         LIBASM_H
-#ifdef __cplusplus
-extern "C" {
-#endif
-// Function declarations from the C library here
-unsigned long   ft_read(int fd, char *buff, unsigned int size_buff);
-int             ft_strcmp(const char *s1, const char *s2);
-char            *ft_strcpy(char *dest, const char *src);
-char            *ft_strdup(const char *s);
-unsigned long   ft_strlen(const char *ptr);
-unsigned long   ft_write(int fd, char *buff, unsigned int size_buff);
-void            test_read(void);
-void            test_strlen(void);
-void            test_strcmp(void);
-void            test_strcpy(void);
-void            test_strdup(void);
-void            test_write(void);
-#ifdef __cplusplus
-}
-#endif
 
 #include "../libft/inc/libft.h"
 #include <cstdio>
@@ -31,10 +12,38 @@ void            test_write(void);
 #include <chrono>
 #include <iostream>
 #include <csignal>
+
 using namespace std;
 using namespace std::chrono;
-#define gettime() duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()
-void    handle_result(bool result, int *);
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+    // Function declarations from the C library here
+    unsigned long   ft_read(int fd, char *buff, unsigned int size_buff);
+    int             ft_strcmp(const char *s1, const char *s2);
+    char            *ft_strcpy(char *dest, const char *src);
+    char            *ft_strdup(const char *s);
+    unsigned long   ft_strlen(const char *ptr);
+    unsigned long   ft_write(int fd, char *buff, unsigned int size_buff);
+    void            test_read(void);
+    void            test_strlen(void);
+    void            test_strcmp(void);
+    void            test_strcpy(void);
+    void            test_strdup(void);
+    void            test_write(void);
+    void            handle_result(bool result, int *);
+#ifdef __cplusplus
+}
+#endif
+
+// typedef struct s_list
+// {
+// void *data;
+// struct s_list *next;
+// } t_list;
+
+#define            gettime() duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()
 #define         RED "\e[0;31m"
 #define         GREEN "\e[0;32m"
 #define         YELLOW "\e[0;33m"
