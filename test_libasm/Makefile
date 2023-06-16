@@ -11,13 +11,19 @@ SRCS_DIR	=	$(sort $(dir $(wildcard src/*/)))
 SRC			=	$(addprefix src/,			\
 						main.cpp			\
 						$(addprefix test/,	\
+							test_read.cpp	\
+							test_strcmp.cpp	\
+							test_strcpy.cpp	\
+							test_strdup.cpp	\
+							test_strlen.cpp	\
+							test_write.cpp	\
                         )					\
 				)
 
 OBJ			=	$(SRC:%.cpp=$(BUILDIR)/%.o)
 DEP			=	$(SRC:%.cpp=$(DEPDIR)/%.d)
 CXX			=	g++
-CXXFLAGS	=	-g -O0
+CXXFLAGS	=	-g -O0 -Wall -Werror -Wextra
 CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 RM			=	/bin/rm -rf
@@ -61,12 +67,12 @@ $(BUILDIR)/%.o:	%.cpp | $(DEPDIR)
 				@mkdir -p build/ $(addprefix build/, $(SRCS_DIR))
 				@mkdir -p build/.deps/ $(addprefix build/.deps/, $(SRCS_DIR))
 				@printf "$(YELLOW)Compiling $(BLUE)$@$(DEFAULT)$(YELLOW) and generating/checking make dependency file...$(DEFAULT)\n"
-				$(CXX) $(DEPFLAGS) $(CXXFLAGS) -c $< -o $@
+				$(CXX) $(DEPFLAGS) $(CXXFLAGS) -I ./inc -c $< -o $@
 				@printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
 
 $(NAME):		$(OBJ)
 				@printf "$(YELLOW)Linking source files and generating $(CYAN)$@$(DEFAULT) $(YELLOW)binary...\n$(DEFAULT)"
-				$(CXX) $(CXXFLAGS) -o $@ $^ -L.. -Llibft -lasm -lft
+				$(CXX) $(CXXFLAGS) -I ./inc -o $@ $^ -L.. -Llibft -lasm -lft
 				@printf "$(DELPREV)$(GREEN)Binary generated$(DEFAULT)\n"
 
 $(DEPDIR):
@@ -78,14 +84,14 @@ $(DEP):
 
 clean:
 				@printf "$(YELLOW)Deleting object and dependency files...$(DEFAULT)\n"
-				$(RM) $(OBJ)
-				$(RM) libasm.a libft.a
+				@$(RM) $(OBJ)
+				@$(RM) libasm.a libft.a
 				@printf "$(DELPREV)Build files deleted\n"
 				@$(MAKE) -C libft --no-print-directory clean
 
 fclean:			clean
 				@printf "$(YELLOW)Deleting build directory...$(DEFAULT)\n"
-				$(RM) $(BUILDIR) $(NAME) temp
+				@$(RM) $(BUILDIR) $(NAME) temp
 				@printf "$(DELPREV)Build directory and binary deleted\n"
 				@$(MAKE) -C libft --no-print-directory fclean
 

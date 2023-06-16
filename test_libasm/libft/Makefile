@@ -102,12 +102,12 @@ $(BUILDIR)/%.o:	%.c | $(DEPDIR)
 				@mkdir -p build/ $(addprefix build/, $(SRCS_DIR))
 				@mkdir -p build/.deps/ $(addprefix build/.deps/, $(SRCS_DIR))
 				@printf "$(YELLOW)Compiling $(BLUE)$@$(DEFAULT)$(YELLOW) and generating/checking make dependency file...$(DEFAULT)\n"
-				$(CXX) $(DEPFLAGS) $(CXXFLAGS) -c $< -o $@
+				@$(CXX) $(DEPFLAGS) $(CXXFLAGS) -c $< -o $@
 				@printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
 
 $(NAME):		$(OBJ)
 				@printf "$(YELLOW)Linking source files and generating $(CYAN)$@$(DEFAULT) $(YELLOW)library...\n$(DEFAULT)"
-				ar -rcs $@ $(OBJ)
+				@ar -rcs $@ $(OBJ)
 				@printf "$(DELPREV)$(GREEN)Library generated$(DEFAULT)\n"
 
 $(DEPDIR):
@@ -119,12 +119,12 @@ $(DEP):
 
 clean:
 				@printf "$(YELLOW)Deleting object and dependency files...$(DEFAULT)\n"
-				$(RM) $(OBJ)
+				@$(RM) $(OBJ)
 				@printf "$(DELPREV)Build files deleted\n"
 
 fclean:			clean
 				@printf "$(YELLOW)Deleting build directory...$(DEFAULT)\n"
-				$(RM) $(BUILDIR) $(NAME) temp
+				@$(RM) $(BUILDIR) $(NAME) temp
 				@printf "$(DELPREV)Build directory and library deleted\n"
 
 re:				fclean
