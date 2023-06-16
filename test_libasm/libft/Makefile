@@ -110,7 +110,7 @@ $(O_DIR)/%.o: $(C_DIR)/%.c
 
 
 $(NAME): $(O_DIR) $(OBJS)
-		@ar rcs ${NAME} ${OBJS}
+		@ar -rcs ${NAME} ${OBJS}
 
 # ################################## #
 #                CLEAN               #

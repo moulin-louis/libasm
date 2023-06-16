@@ -2,35 +2,24 @@
 ## Variables ##
 ###############
 
-NAME		=	libasm.a
-NAME_TEST	=	test_lib
+NAME		=	test_lib
 ## add library here (minilibx, ncurses, libft, ...)
-LIBDIR		=	
 INCLDIR		=	$(addsuffix /inc,$(LIBDIR) .)
 BUILDIR		=	build
 DEPDIR		=	$(BUILDIR)/.deps
-
 SRCS_DIR	=	$(sort $(dir $(wildcard src/*/)))
-
-SRC_ASM		=	$(addprefix src/,			\
-					$(addprefix mandatory/,	\
-						ft_read.s			\
-						ft_strcmp.s			\
-						ft_strcpy.s			\
-						ft_strdup.s			\
-						ft_strlen.s			\
-						ft_write.s			\
-					)						\
+SRC			=	$(addprefix src/,			\
+						main.c			\
+						$(addprefix test/,	\
+                        )					\
 				)
 
-OBJ			=	$(SRC_ASM:%.s=$(BUILDIR)/%.o)
-DEP			=	$(SRC_ASM:%.s=$(DEPDIR)/%.d)
-
-ASM_COMP	=	nasm
-ASM_FLAGS	=	-f elf64 -wall -g -O0
-CXX			=	gcc
-CXXFLAGS	=	-g -O0 $(addprefix -I, $(INCLDIR))
-DEPFLAGS	=	-MT $@ -MP -MF $(DEPDIR)/$*.d
+OBJ			=	$(SRC:%.c=$(BUILDIR)/%.o)
+DEP			=	$(SRC:%.c=$(DEPDIR)/%.d)
+CXX			=	clang
+CXXFLAGS	=	-g -O0
+CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
+DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 RM			=	/bin/rm -rf
 
 # FG COLORS
@@ -57,7 +46,6 @@ CROSS		=	\xE2\x9D\x8C
 HEAD_SIZE	=	32
 BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 
-
 ###########
 ## Rules ##
 ###########
@@ -65,40 +53,42 @@ BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 .PHONY:			all bonus clean fclean header lib re verbose
 
 all:
-				@$(MAKE) -s $(NAME)
-				@$(MAKE) --no-print-directory -C test_libasm all
+				@printf "$(YELLOW)Compiling LIBFT...$(DEFAULT)\n"
+				@$(MAKE) -C libft --no-print-directory all
+				@$(MAKE) -sk $(NAME)
 
-$(BUILDIR)/%.o:	%.s | $(DEPDIR)
+$(BUILDIR)/%.o:	%.c | $(DEPDIR)
 				@mkdir -p build/ $(addprefix build/, $(SRCS_DIR))
 				@mkdir -p build/.deps/ $(addprefix build/.deps/, $(SRCS_DIR))
 				@printf "$(YELLOW)Compiling $(BLUE)$@$(DEFAULT)$(YELLOW) and generating/checking make dependency file...$(DEFAULT)\n"
-				@$(ASM_COMP) $(DEPFLAGS) $(ASM_FLAGS) $< -o $@
+				$(CXX) $(DEPFLAGS) $(CXXFLAGS) -c $< -o $@
 				@printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
 
 $(NAME):		$(OBJ)
-				@printf "$(YELLOW)Linking source files and generating $(CYAN)$@$(DEFAULT) $(YELLOW)library...\n$(DEFAULT)"
-				@ar -rcs -o $@ $^
-				@printf "$(DELPREV)$(GREEN)Library generated$(DEFAULT)\n"
+				@printf "$(YELLOW)Linking source files and generating $(CYAN)$@$(DEFAULT) $(YELLOW)binary...\n$(DEFAULT)"
+				$(CXX) $(CXXFLAGS) -o $@ $^ -L.. -Llibft -lasm -lft
+				@printf "$(DELPREV)$(GREEN)Binary generated$(DEFAULT)\n"
 
 $(DEPDIR):
 				@printf "$(YELLOW)Creating $(BLUE)$@$(DEFAULT)$(YELLOW) folder...$(DEFAULT)\n"
 				@mkdir -p $@
 				@printf "$(DELPREV)"
-
 $(DEP):
-				-include $(wildcard $(DEP))
+-include $(wildcard $(DEP))
 
 clean:
 				@printf "$(YELLOW)Deleting object and dependency files...$(DEFAULT)\n"
-				@$(RM) $(OBJ)
+				$(RM) $(OBJ)
+				$(RM) libasm.a libft.a
 				@printf "$(DELPREV)Build files deleted\n"
-				@$(MAKE) -C test_libasm --no-print-directory clean
+				@$(MAKE) -C libft --no-print-directory clean
 
 fclean:			clean
-				@printf "$(YELLOW)Deleting build directory and binary...$(DEFAULT)\n"
-				@$(RM) $(BUILDIR) $(NAME)
-				@printf "$(DELPREV)Build directory and library deleted\n"
-				@$(MAKE) -C test_libasm --no-print-directory fclean
+				@printf "$(YELLOW)Deleting build directory...$(DEFAULT)\n"
+				$(RM) $(BUILDIR) $(NAME) temp
+				@printf "$(DELPREV)Build directory and binary deleted\n"
+				@$(MAKE) -C libft --no-print-directory fclean
 
 re:				fclean
 				@$(MAKE) -s all
+

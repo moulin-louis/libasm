@@ -59,11 +59,11 @@ void	libft_ft_putchar_fd(char c, int fd);
 void	libft_ft_putstr_fd(char *s, int fd);
 void	libft_ft_putendl_fd(char *s, int fd);
 void	libft_ft_putnbr_fd(int n, int fd);
-void	libft_ft_lstadd_back(t_list **lst, t_list *new);
+void	libft_ft_lstadd_back(t_list **lst, t_list *new_node);
 t_list	*libft_ft_lstlast(t_list *lst);
 int		libft_ft_lstsize(t_list *lst);
 t_list	*libft_ft_lstnew(void *content);
-void	libft_ft_lstadd_front(t_list **lst, t_list *new);
+void	libft_ft_lstadd_front(t_list **lst, t_list *new_node);
 void	libft_ft_lstdelone(t_list *lst, void (*del)(void*));
 void	clean_array(char **arr);
 
