@@ -1,131 +1,132 @@
-SRCS	=
+###############
+## Variables ##
+###############
 
-OBJS	= ${SRCS:.c=.o}
+NAME		=	libft.a
+## add library here (minilibx, ncurses, libft, ...)
+INCLDIR		=	$(addsuffix /inc,$(LIBDIR) .)
+BUILDIR		=	build
+DEPDIR		=	$(BUILDIR)/.deps
+SRCS_DIR	=	$(sort $(dir $(wildcard src/*/)))
+SRC			=	$(addprefix src/,			\
+						ft_atoi.c 			\
+						ft_calloc.c 		\
+						ft_isascii.c  		\
+						ft_bzero.c 			\
+						ft_isalnum.c 		\
+						ft_isalpha.c 		\
+						ft_isdigit.c 		\
+						ft_isprint.c 		\
+						ft_memchr.c 		\
+						ft_memcmp.c 		\
+						ft_memcpy.c 		\
+						ft_strdup.c 		\
+						ft_memmove.c 		\
+						ft_memset.c 		\
+						ft_strchr.c 		\
+						ft_strlcat.c 		\
+						ft_strlcpy.c 		\
+						ft_strlen.c 		\
+						ft_strncmp.c 		\
+						ft_strnstr.c 		\
+						ft_strrchr.c 		\
+						ft_tolower.c 		\
+						ft_toupper.c 		\
+						ft_substr.c 		\
+						ft_strjoin.c 		\
+						ft_strtrim.c 		\
+						ft_split.c 			\
+						ft_itoa.c 			\
+						ft_strmapi.c 		\
+						ft_striteri.c		\
+						ft_putchar_fd.c		\
+						ft_putstr_fd.c 		\
+						ft_putendl_fd.c 	\
+						ft_putnbr_fd.c		\
+						ft_lstadd_back.c	\
+						ft_lstadd_front.c	\
+						ft_lstclear.c		\
+						ft_lstdelone.c		\
+						ft_lstiter.c		\
+						ft_lstlast.c		\
+						ft_lstmap.c			\
+						ft_lstnew.c			\
+						ft_lstsize.c		\
+						clean_split.c		\
+						$(addprefix DO_NOT_DELETE/,	\
+                        )					\
+				)
 
-SRCS_B	=
+OBJ			=	$(SRC:%.c=$(BUILDIR)/%.o)
+DEP			=	$(SRC:%.c=$(DEPDIR)/%.d)
+CXX			=	gcc
+CXXFLAGS	=	-g -Wall -Werror -Wextra
+CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
+DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
+RM			=	/bin/rm -rf
 
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: loumouli <loumouli@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/01/13 13:30:11 by loumouli          #+#    #+#              #
-#    Updated: 2023/02/12 11:30:19 by loumouli         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+# FG COLORS
+DEFAULT		=	\033[0m
+BLACK		=	\033[1;30m
+RED			=	\033[1;31m
+GREEN		=	\033[1;32m
+YELLOW		=	\033[1;33m
+BLUE		=	\033[1;34m
+MAGENTA 	=	\033[1;35m
+CYAN 		=	\033[1;36m
+WHITE 		=	\033[1;107m
 
-# ################################## #
-#               COMMAND              #
-# ################################## #
-CC			= cc
-MKDIR		= mkdir -p
-RM			= rm -rf
+# TERMCAPS
+UP			=	\033[1A
+DELETE		=	\033[2K
+DELPREV		=	$(UP)$(DELETE)\r
 
-# ################################## #
-#              EXEC NAME             #
-# ################################## #
-NAME		= libft.a
+# EMOJI
+CHECK		=	\xE2\x9C\x94
+CROSS		=	\xE2\x9D\x8C
 
-# ################################## #
-#               SOURCES              #
-# ################################## #
-C_DIR		= src
-C_FILES =	ft_atoi.c 			\
-			ft_calloc.c 		\
-			ft_isascii.c  		\
-			ft_bzero.c 			\
-			ft_isalnum.c 		\
-			ft_isalpha.c 		\
-			ft_isdigit.c 		\
-			ft_isprint.c 		\
-			ft_memchr.c 		\
-			ft_memcmp.c 		\
-			ft_memcpy.c 		\
-			ft_strdup.c 		\
-			ft_memmove.c 		\
-			ft_memset.c 		\
-			ft_strchr.c 		\
-			ft_strlcat.c 		\
-			ft_strlcpy.c 		\
-			ft_strlen.c 		\
-			ft_strncmp.c 		\
-			ft_strnstr.c 		\
-			ft_strrchr.c 		\
-			ft_tolower.c 		\
-			ft_toupper.c 		\
-			ft_substr.c 		\
-			ft_strjoin.c 		\
-			ft_strtrim.c 		\
-			ft_split.c 			\
-			ft_itoa.c 			\
-			ft_strmapi.c 		\
-			ft_striteri.c		\
-			ft_putchar_fd.c		\
-			ft_putstr_fd.c 		\
-			ft_putendl_fd.c 	\
-			ft_putnbr_fd.c		\
-			ft_lstadd_back.c	\
-			ft_lstadd_front.c	\
-			ft_lstclear.c		\
-			ft_lstdelone.c		\
-			ft_lstiter.c		\
-			ft_lstlast.c		\
-			ft_lstmap.c			\
-			ft_lstnew.c			\
-			ft_lstsize.c		\
-			clean_split.c		\
+# DISPLAY
+HEAD_SIZE	=	32
+BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 
-SRCS		= $(patsubst %, $(C_DIR)/%, $(C_FILES))
+###########
+## Rules ##
+###########
 
-# ################################## #
-#               OBJECTS              #
-# ################################## #
-O_DIR		= objs
-O_FILES		= $(C_FILES:.c=.o)
-OBJS		= $(patsubst %, $(O_DIR)/%, $(O_FILES))
+.PHONY:			all bonus clean fclean header lib re verbose
 
-# ################################## #
-#                FLAGS               #
-# ################################## #
-CFLAGS		= -Wall -Wextra -Werror -g -MMD -O0
+all:
+				@$(MAKE) -s $(NAME)
 
-# ################################## #
-#                INCLUDES            #
-# ################################## #
-CINCLUDES = -I ./inc
-# ################################## #
-#                RULES               #
-# ################################## #
+$(BUILDIR)/%.o:	%.c | $(DEPDIR)
+				@mkdir -p build/ $(addprefix build/, $(SRCS_DIR))
+				@mkdir -p build/.deps/ $(addprefix build/.deps/, $(SRCS_DIR))
+				@printf "$(YELLOW)Compiling $(BLUE)$@$(DEFAULT)$(YELLOW) and generating/checking make dependency file...$(DEFAULT)\n"
+				$(CXX) $(DEPFLAGS) $(CXXFLAGS) -c $< -o $@
+				@printf '$(DELPREV)%-*s$(GREEN)$(CHECK)$(DEFAULT)\n' $(BODY_WIDTH) $(notdir $@)
 
-all:	$(NAME)
+$(NAME):		$(OBJ)
+				@printf "$(YELLOW)Linking source files and generating $(CYAN)$@$(DEFAULT) $(YELLOW)library...\n$(DEFAULT)"
+				ar -rcs $@ $(OBJ)
+				@printf "$(DELPREV)$(GREEN)Library generated$(DEFAULT)\n"
 
-$(O_DIR):
-		@$(MKDIR) $(O_DIR)
-
-$(O_DIR)/%.o: $(C_DIR)/%.c
-		@$(CC)  $(CFLAGS) $(CINCLUDES) -c $< -o $@
-
-
-
-$(NAME): $(O_DIR) $(OBJS)
-		@ar -rcs ${NAME} ${OBJS}
-
-# ################################## #
-#                CLEAN               #
-# ################################## #
+$(DEPDIR):
+				@printf "$(YELLOW)Creating $(BLUE)$@$(DEFAULT)$(YELLOW) folder...$(DEFAULT)\n"
+				@mkdir -p $@
+				@printf "$(DELPREV)"
+$(DEP):
+-include $(wildcard $(DEP))
 
 clean:
-		@$(RM) $(O_DIR)
+				@printf "$(YELLOW)Deleting object and dependency files...$(DEFAULT)\n"
+				$(RM) $(OBJ)
+				@printf "$(DELPREV)Build files deleted\n"
 
-fclean: clean
-		@$(RM) $(NAME)
+fclean:			clean
+				@printf "$(YELLOW)Deleting build directory...$(DEFAULT)\n"
+				$(RM) $(BUILDIR) $(NAME) temp
+				@printf "$(DELPREV)Build directory and library deleted\n"
 
-re:			fclean all
+re:				fclean
+				@$(MAKE) -s all
 
-.PHONY: all clean fclean re
-
--include ./objs/*.d
-
-.NOTPARALLEL:fclean

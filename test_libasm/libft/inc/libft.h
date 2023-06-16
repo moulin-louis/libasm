@@ -21,6 +21,12 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+// Function declarations here
+
 t_list	*libft_ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	libft_ft_lstiter(t_list *lst, void (*f)(void *));
 void	libft_ft_lstclear(t_list **lst, void (*del)(void *));
@@ -66,5 +72,10 @@ t_list	*libft_ft_lstnew(void *content);
 void	libft_ft_lstadd_front(t_list **lst, t_list *new_node);
 void	libft_ft_lstdelone(t_list *lst, void (*del)(void*));
 void	clean_array(char **arr);
+#ifdef __cplusplus
+}
+#endif
+
+
 
 #endif

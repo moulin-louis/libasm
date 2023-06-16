@@ -9,14 +9,14 @@ BUILDIR		=	build
 DEPDIR		=	$(BUILDIR)/.deps
 SRCS_DIR	=	$(sort $(dir $(wildcard src/*/)))
 SRC			=	$(addprefix src/,			\
-						main.c			\
+						main.cpp			\
 						$(addprefix test/,	\
                         )					\
 				)
 
-OBJ			=	$(SRC:%.c=$(BUILDIR)/%.o)
-DEP			=	$(SRC:%.c=$(DEPDIR)/%.d)
-CXX			=	clang
+OBJ			=	$(SRC:%.cpp=$(BUILDIR)/%.o)
+DEP			=	$(SRC:%.cpp=$(DEPDIR)/%.d)
+CXX			=	g++
 CXXFLAGS	=	-g -O0
 CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
@@ -57,7 +57,7 @@ all:
 				@$(MAKE) -C libft --no-print-directory all
 				@$(MAKE) -sk $(NAME)
 
-$(BUILDIR)/%.o:	%.c | $(DEPDIR)
+$(BUILDIR)/%.o:	%.cpp | $(DEPDIR)
 				@mkdir -p build/ $(addprefix build/, $(SRCS_DIR))
 				@mkdir -p build/.deps/ $(addprefix build/.deps/, $(SRCS_DIR))
 				@printf "$(YELLOW)Compiling $(BLUE)$@$(DEFAULT)$(YELLOW) and generating/checking make dependency file...$(DEFAULT)\n"
