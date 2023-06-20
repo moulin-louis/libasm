@@ -59,7 +59,7 @@ SRC			=	$(addprefix src/,			\
 
 OBJ			=	$(SRC:%.c=$(BUILDIR)/%.o)
 DEP			=	$(SRC:%.c=$(DEPDIR)/%.d)
-CXX			=	gcc
+CXX			=	clang
 CXXFLAGS	=	-g -Wall -Werror -Wextra
 CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d

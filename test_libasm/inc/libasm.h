@@ -26,21 +26,25 @@ extern "C" {
     char            *ft_strdup(const char *s);
     unsigned long   ft_strlen(const char *ptr);
     unsigned long   ft_write(int fd, char *buff, unsigned int size_buff);
-    void            test_read(void);
-    void            test_strlen(void);
-    void            test_strcmp(void);
-    void            test_strcpy(void);
-    void            test_strdup(void);
-    void            test_write(void);
-    void            handle_result(bool result, int *);
+    unsigned int    ft_list_size(t_list *head);
+    void            ft_list_push_front(t_list **head, void *data);
+    
 #ifdef __cplusplus
 }
 #endif
 
+void            test_read(void);
+void            test_strlen(void);
+void            test_strcmp(void);
+void            test_strcpy(void);
+void            test_strdup(void);
+void            test_write(void);
+void            test_list_size(void);
+void            handle_result(bool result, int *);
 // typedef struct s_list
 // {
-// void *data;
-// struct s_list *next;
+//     void *data;
+//     struct s_list *next;
 // } t_list;
 
 #define            gettime() duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()

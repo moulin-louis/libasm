@@ -11,6 +11,7 @@ SRCS_DIR	=	$(sort $(dir $(wildcard src/*/)))
 SRC			=	$(addprefix src/,			\
 						main.cpp			\
 						$(addprefix test/,	\
+							test_list_size.cpp\
 							test_read.cpp	\
 							test_strcmp.cpp	\
 							test_strcpy.cpp	\
