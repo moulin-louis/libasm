@@ -30,31 +30,14 @@ void handle_result(bool result, int *nbr_test) {
 
 int main() {
     cout << GREEN;
-<<<<<<< HEAD
-     test_strlen();
-     test_strcmp();
-     test_strcpy();
-     test_strdup();
-     test_read();
-     test_write();
-     test_list_size();
+    test_strlen();
+    test_strcmp();
+    test_strcpy();
+    test_strdup();
+    test_read();
+    test_write();
+    test_list_size();
 	test_push_front();
-=======
-    t_list *tmp = (t_list *)calloc(1, sizeof(t_list));
-    if (!tmp) {
-        return (1);
-    }
-    int x = 5;
-    ft_list_push_front(&tmp, &x);
-    free(tmp);
-    // test_strlen();
-    // test_strcmp();
-    // test_strcpy();
-    // test_strdup();
-    // test_read();
-    // test_write();
-    // test_list_size();
->>>>>>> 382fb3ec85ec01664a2a15c193f6ce39e418f856
 }
 
 
