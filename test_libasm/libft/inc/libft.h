@@ -76,6 +76,4 @@ void	clean_array(char **arr);
 }
 #endif
 
-
-
 #endif

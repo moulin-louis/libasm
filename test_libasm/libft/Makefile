@@ -59,7 +59,7 @@ SRC			=	$(addprefix src/,			\
 
 OBJ			=	$(SRC:%.c=$(BUILDIR)/%.o)
 DEP			=	$(SRC:%.c=$(DEPDIR)/%.d)
-CXX			=	clang
+CXX			=	gcc
 CXXFLAGS	=	-g -Wall -Werror -Wextra
 CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
@@ -129,4 +129,3 @@ fclean:			clean
 
 re:				fclean
 				@$(MAKE) -s all
-
