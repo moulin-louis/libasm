@@ -12,6 +12,7 @@ SRC			=	$(addprefix src/,			\
 						main.cpp			\
 						$(addprefix test/,	\
 							test_list_size.cpp\
+							test_push_front.cpp\
 							test_read.cpp	\
 							test_strcmp.cpp	\
 							test_strcpy.cpp	\
@@ -97,5 +98,7 @@ fclean:			clean
 				@$(MAKE) -C libft --no-print-directory fclean
 
 re:				fclean
+				make -C .. fclean
+				make -C .. libasm.a
 				@$(MAKE) -s all
 

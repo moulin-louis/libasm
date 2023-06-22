@@ -40,6 +40,7 @@ void            test_strcpy(void);
 void            test_strdup(void);
 void            test_write(void);
 void            test_list_size(void);
+void			test_push_front(void);
 void            handle_result(bool result, int *);
 // typedef struct s_list
 // {
