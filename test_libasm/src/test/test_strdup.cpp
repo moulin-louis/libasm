@@ -7,7 +7,7 @@ static void testing(string src) {
         cout << RED << "Test " << x << ": " << "Malloc error"<< " " << RESET;
         return ;
     }
-    bool result = (string(dest) == src) ? true : false;
+    bool result = string(dest) == src;
     handle_result(result, &x);
     cout.flush();
     free(dest);

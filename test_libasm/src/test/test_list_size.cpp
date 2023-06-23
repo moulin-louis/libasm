@@ -2,7 +2,7 @@
 
 static void testing(t_list *head, unsigned int expected_size) {
     static int x;
-    bool result = (ft_list_size(head) == expected_size) ? true : false;
+    bool result = ft_list_size(head) == expected_size;
     handle_result(result, &x);
     cout.flush();
 }

@@ -2,7 +2,7 @@
 
 static void testing(string str) {
 	static int x;
-	bool result = (strlen(str.c_str()) == ft_strlen(str.c_str()) ? true : false);
+	bool result = strlen(str.c_str()) == ft_strlen(str.c_str());
 	handle_result(result, &x);
 	cout.flush();
 }

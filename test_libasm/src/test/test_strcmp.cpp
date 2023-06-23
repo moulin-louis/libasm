@@ -2,7 +2,7 @@
 
 static void testing(string str1, string str2) {
     static int x;
-    bool result = strcmp(str1.c_str(), str2.c_str()) == ft_strcmp(str1.c_str(), str2.c_str())  ? true : false;
+    bool result = strcmp(str1.c_str(), str2.c_str()) == ft_strcmp(str1.c_str(), str2.c_str());
     handle_result(result, &x);
     cout.flush();
 }

@@ -16,12 +16,12 @@ static void testing(int in, int out, const void *src, int size, int expected_err
         char c = 0;
         write(out, &eof, 1);
         read(in, &c, 1);
-        result = (!memcmp(dest, (char const *)src, size) && c == eof) ? true : false;
+        result = !memcmp(dest, (char const *)src, size) && c == eof;
         handle_result(result, &x);
     }
-    result = (expected_retval == retval) ? true : false;
+    result = expected_retval == retval;
     handle_result(result, &x);
-    cout.flush();
+    std::cout.flush();
 }
 
 void test_write(void) {

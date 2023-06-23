@@ -13,34 +13,35 @@ void testing(int fd, const char *str, int size, int expected_errno, int expected
     read(fd, &c, 1);
     if (errno == 0) {
         //second test
-        result = !memcmp(str, buff, size) ? true : false;
+        result = !memcmp(str, buff, size);
         cout << (result ? GREEN : RED);
         cout << "Test " << x++ << ": " << (result ? "OK!" : "KO!") << " ";
         //third test
-        result = (c == -1 || c == str[size]) ? true : false;
+        result = c == -1 || c == str[size];
         handle_result(result, &x);
     }
         //4r test
-    result = (retval == expected_retval) ? true : false;
+    result = retval == expected_retval;
     handle_result(result, &x);
     cout.flush();
 }
 
 
 void test_read(void) {
+	char path[] = "/mnt/nfs/homes/loumouli/libasm/test_libasm/test_file";
     cout << YELLOW << "Testing ft_read:" << RESET << endl;
     signal(SIGPIPE, SIG_IGN);
-    int fd = open("./test_file", O_RDONLY);
+    int fd = open(path, O_RDONLY);
     testing(fd, "loumouli", 0, 0, 0); // test 0-1-2
     close(fd);
-    fd = open("./test_file", O_RDONLY);
+    fd = open(path, O_RDONLY);
     testing(fd, "loumouli", 3, 0, 3); // test 3-4-5
     close(fd);
-    fd = open("./test_file", O_RDONLY);
+    fd = open(path, O_RDONLY);
     testing(fd, "loumouli", 8, 0, 8); // test 6-7-8
     close(fd);
     testing(-1, "", 1, EBADF, -1); // test 9-10
-    fd = open("./libft", O_RDONLY);
+    fd = open("/mnt/nfs/homes/loumouli/libasm/test_libasm/libft", O_RDONLY);
     testing(fd, "", 1, EISDIR, -1); //test11-12
     close(fd);
     cout << endl;
