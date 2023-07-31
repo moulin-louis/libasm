@@ -15,8 +15,8 @@ int main(void) {
 //    test_strdup();
 //    test_read();
 //    test_write();
-    test_list_size();
-//	test_push_front();
+//    test_list_size();
+	test_push_front();
 }
 
 

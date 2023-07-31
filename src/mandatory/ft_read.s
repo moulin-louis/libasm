@@ -5,7 +5,7 @@ section .text
 ft_read: ; long[$rax] ft_read(int fd[$edi], char *buff[$rsi], unsigned long buff_size[$edi])
 	mov rax, 0 ;load up syscall code 0 (read) into rax
 	syscall ; calling syscall
-	cmp eaxm 0 ; compare the return value with 0
+	cmp eax, 0 ; compare the return value with 0
 	jl .error_handle ; jump to error_handle if the previous compare was less than 0
 	ret ; return
 .error_handle: ; if an error occur during read syscall
