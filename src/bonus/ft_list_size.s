@@ -1,6 +1,11 @@
+;struct s_list {
+;   void    *content;
+;   s_list  *next;
+;} t_list;
+; return the size of the linked list starting from head
 section .text
 	global ft_list_size ;export ft_list_size
-ft_list_size:
+ft_list_size: ; unsigned int ft_list_size($rax)(t_list *head($rdi))
 	xor eax, eax ; set eax to 0
 	test rdi, rdi ; test if rdi is non-null
 	je	.end_loop ; jump if null
