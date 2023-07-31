@@ -1,9 +1,9 @@
 section .text
 	global ft_write ;export ft_write
 	extern __errno_location
-ft_write: ; long ft_write(int fd($edi), void *buff($rsi), unsigned long buff_size($edx))
+ft_write: ; long[$rax] ft_write(int fd[$edi], void *buff[$rsi], unsigned long buff_size[$edx])
 	mov rax, 1 ;load up syscall code 1 (write) into rax
-	syscall ; calling the write syscall
+	syscall ; calling the syscall
 	cmp eax, 0x0 ; compare the return value with 0
 	jl .error_handle ; jump to error_handle if the previous compare was less than 0
 	ret ; return

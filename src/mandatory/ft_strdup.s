@@ -5,17 +5,17 @@ section .text
 	extern ft_strlen
 	extern ft_strcpy
 
-ft_strdup: ;char *($rax)ft_strdup(const char *src($rdi))
-	mov r8, rdi
-	call ft_strlen
-	mov rdi, rax
-	inc rdi
+ft_strdup: ;char *[$rax]ft_strdup(const char *src[$rdi])
+	mov r8, rdi ; save src pointer into r8
+	call ft_strlen ; call ft_strlen on src
+	mov rdi, rax ; mov the result into rdi
+	inc rdi ; increment rdi by one
 	call malloc wrt ..plt; call malloc -> void *($rax)malloc(unsigned long size($edi))
-	cmp rax, 0x0
-	je .end_loop
-	mov rdi, rax
-	mov rsi, r8
-	call ft_strcpy
+	cmp rax, 0x0 ; check if malloc fail
+	je .end_loop ; if it fail, jump
+	mov rdi, rax ; mov the result of malloc into rdi
+	mov rsi, r8 ; move src pointer into rsi
+	call ft_strcpy ; call ft_strcpy
 .end_loop:
 	ret ; return
 
