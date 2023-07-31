@@ -11,11 +11,15 @@
 #include <chrono>
 #include <iostream>
 #include <csignal>
-#include "../libft/inc/libft.h"
+//#include "../libft/inc/libft.h"
 
 using namespace std::chrono;
 using namespace std;
-
+typedef struct s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
 
 #ifdef __cplusplus
 extern "C" {
@@ -51,5 +55,4 @@ void            handle_result(bool result, int *);
 #define         YELLOW "\e[0;33m"
 #define         RESET "\e[0m"
 #define			ITER_TEST 100000000
-
 #endif

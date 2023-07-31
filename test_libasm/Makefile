@@ -61,8 +61,6 @@ BODY_WIDTH	=	$(shell printf "$$(($(HEAD_SIZE) - 1))")
 .PHONY:			all bonus clean fclean header lib re verbose
 
 all:
-				@printf "$(YELLOW)Compiling LIBFT...$(DEFAULT)\n"
-				@$(MAKE) -C libft --no-print-directory all
 				@$(MAKE) -sk $(NAME)
 
 $(BUILDIR)/%.o:	%.cpp | $(DEPDIR)
@@ -74,7 +72,7 @@ $(BUILDIR)/%.o:	%.cpp | $(DEPDIR)
 
 $(NAME):		$(OBJ)
 				@printf "$(YELLOW)Linking source files and generating $(CYAN)$@$(DEFAULT) $(YELLOW)binary...\n$(DEFAULT)"
-				$(CXX) $(CXXFLAGS) -I ./inc -o $@ $^ -L.. -Llibft -lasm -lft
+				$(CXX) $(CXXFLAGS) -I ./inc -o $@ $^ -L.. -lasm
 				@printf "$(DELPREV)$(GREEN)Binary generated$(DEFAULT)\n"
 
 $(DEPDIR):
@@ -87,15 +85,12 @@ $(DEP):
 clean:
 				@printf "$(YELLOW)Deleting object and dependency files...$(DEFAULT)\n"
 				@$(RM) $(OBJ)
-				@$(RM) libasm.a libft.a
 				@printf "$(DELPREV)Build files deleted\n"
-				@$(MAKE) -C libft --no-print-directory clean
 
 fclean:			clean
 				@printf "$(YELLOW)Deleting build directory...$(DEFAULT)\n"
 				@$(RM) $(BUILDIR) $(NAME) temp
 				@printf "$(DELPREV)Build directory and binary deleted\n"
-				@$(MAKE) -C libft --no-print-directory fclean
 
 re:				fclean
 				make -C .. fclean

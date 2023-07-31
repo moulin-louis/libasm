@@ -7,6 +7,13 @@ static void testing(string str) {
 	cout.flush();
 }
 
+static unsigned int libft_ft_strlen(const char *ptr) {
+	const char* start = ptr;
+	while (*ptr)
+		ptr++;
+	return (ptr - start);
+}
+
 void perf_strlen(void) {
 	char str[] = "Hello World!";
 	int i = 0;
