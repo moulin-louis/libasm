@@ -1,6 +1,9 @@
 section .text
 	global ft_strcpy ;export ft_strcpy
 ft_strcpy: ; char *[$rax] ft_strpcy(char *dest[$rdi], const char *src[$rsi]);
+    mov rax, 0x0
+    cmp rsi, 0x0
+    je .error
 	mov r8, rdi ;save dest ptr to r8
 .start_loop:
 	mov al, byte [rsi] ; load one char of src
@@ -13,6 +16,7 @@ ft_strcpy: ; char *[$rax] ft_strpcy(char *dest[$rdi], const char *src[$rsi]);
 .end_loop:
     mov [rdi], al ; zero terminate the string because al is equal to 0 in this situation
 	mov rax, r8 ; move the save dest ptr to rax
+.error:
 	ret ; return
 
 section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning
