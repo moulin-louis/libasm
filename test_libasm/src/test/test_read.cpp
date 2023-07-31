@@ -28,20 +28,21 @@ void testing(int fd, const char *str, int size, int expected_errno, int expected
 
 
 void test_read(void) {
-	char path[] = "/mnt/nfs/homes/loumouli/libasm/test_libasm/test_file";
+	char path_file[] = "./test_file";
+	char path_folder[] = "./libft";
     cout << YELLOW << "Testing ft_read:" << RESET << endl;
     signal(SIGPIPE, SIG_IGN);
-    int fd = open(path, O_RDONLY);
+    int fd = open(path_file, O_RDONLY);
     testing(fd, "loumouli", 0, 0, 0); // test 0-1-2
     close(fd);
-    fd = open(path, O_RDONLY);
+    fd = open(path_file, O_RDONLY);
     testing(fd, "loumouli", 3, 0, 3); // test 3-4-5
     close(fd);
-    fd = open(path, O_RDONLY);
+    fd = open(path_file, O_RDONLY);
     testing(fd, "loumouli", 8, 0, 8); // test 6-7-8
     close(fd);
     testing(-1, "", 1, EBADF, -1); // test 9-10
-    fd = open("/mnt/nfs/homes/loumouli/libasm/test_libasm/libft", O_RDONLY);
+    fd = open(path_folder, O_RDONLY);
     testing(fd, "", 1, EISDIR, -1); //test11-12
     close(fd);
     cout << endl;

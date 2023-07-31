@@ -1,8 +1,6 @@
 section .text
 	global ft_list_sort ;export ft_list_sort
 ft_list_sort: ; void ft_list_sort(t_list **head($rdi), int(*cmp)($rsi))
-	push rbp ; push the stack
-	mov rbp, rsp ; update the base stack ptr
     mov rdi, [rdi] ; switch t_list **head to t_list *head
 	sub rbp, 20 ; allocate space for 2 64 bits ptr and one 32 bits int
 	mov QWORD [rbp], 0x0 ; init lptr to NULL
@@ -41,7 +39,6 @@ ft_list_sort: ; void ft_list_sort(t_list **head($rdi), int(*cmp)($rsi))
     jmp .1rt_segment
 .5th_segment:
     add rbp, 0x14
-	pop rbp ; pop the stack
 	ret ; exiting the function
 
 ; section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning

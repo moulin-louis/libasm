@@ -16,6 +16,6 @@ void test_strcmp(void) {
     testing("loumouli", "loumoulI");
     testing("loumouli", "loumoulix");
     testing("loumouli", "loumoul");
-    testing(long_string, long_string);
+    testing("long_string", "long_string");
     cout << endl;
 }

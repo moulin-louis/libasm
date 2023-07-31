@@ -17,7 +17,7 @@ void test_strdup(void) {
     cout << YELLOW << "Testing ft_strdup:" << RESET << endl;
     testing("Bonjour"); // Test 0
     testing("123"); // Test 1
-    testing(long_string); // Test 2
+    testing("long_string"); // Test 2
     testing(""); // Test 3
     cout << endl;
 }

@@ -24,7 +24,7 @@ SRC			=	$(addprefix src/,			\
 
 OBJ			=	$(SRC:%.cpp=$(BUILDIR)/%.o)
 DEP			=	$(SRC:%.cpp=$(DEPDIR)/%.d)
-CXX			=	g++
+CXX			=	c++
 CXXFLAGS	=	-g -O0 -Wall -Werror -Wextra
 CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d

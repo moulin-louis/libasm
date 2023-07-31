@@ -1,8 +1,6 @@
 section .text
 	global ft_strcmp ;export ft_strcmp
 ft_strcmp: ;int($eax) strcmp( char *s1($rdi), char *s2($rsi))
-	push rbp ; push the stack
-	mov rbp, rsp ; update the base stack ptr
 .start_loop:
 	mov ah, byte [rdi] ; load one char of rdi
 	mov al, byte [rsi] ; load one char of rsi
@@ -17,9 +15,8 @@ ft_strcmp: ;int($eax) strcmp( char *s1($rdi), char *s2($rsi))
 	jmp .start_loop ; start over the loop
 .end_loop:
 	; return division of last two digits
-	sub ah, al ; substract to return the wright value
+	sub ah, al ; substract to return the right value
 	movsx eax, ah ; move the result inside eax but keeping the sign bytes
-	pop rbp ; pop the stack
-	ret ; return 
+	ret ; return
 
 section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning
