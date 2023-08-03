@@ -1,14 +1,22 @@
 #include "libasm.h"
 
-static void testing(string str1, string str2) {
+static void testing(std::string str1, std::string str2) {
     static int x;
-    bool result = strcmp(str1.c_str(), str2.c_str()) == ft_strcmp(str1.c_str(), str2.c_str());
+	bool result = false;
+	int of_result = strcmp(str1.c_str(), str2.c_str());
+	int my_result = ft_strcmp(str1.c_str(), str2.c_str());
+	if (of_result < 0 && my_result < 0)
+		result = true;
+	if (of_result > 0 && my_result > 0)
+		result = true;
+	if (of_result == 0 && my_result == 0)
+		result = true;
     handle_result(result, &x);
-    cout.flush();
+    std::cout.flush();
 }
 
 void test_strcmp(void) {
-    cout << YELLOW << "Testing ft_strcmp:" << RESET << endl;
+    std::cout << YELLOW << "\tTesting ft_strcmp:" << RESET << std::endl;
     // I just stole Tripouille test tbh
     testing("", "");
     testing("loumouli", "loumouli");
@@ -17,5 +25,5 @@ void test_strcmp(void) {
     testing("loumouli", "loumoulix");
     testing("loumouli", "loumoul");
     testing("long_string", "long_string");
-    cout << endl;
+    std::cout << std::endl;
 }

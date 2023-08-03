@@ -14,6 +14,7 @@ SRC			=	$(addprefix src/,			\
 							test_list_size.cpp\
 							test_push_front.cpp\
 							test_read.cpp	\
+							test_remove_if.cpp	\
 							test_strcmp.cpp	\
 							test_strcpy.cpp	\
 							test_strdup.cpp	\
@@ -25,7 +26,7 @@ SRC			=	$(addprefix src/,			\
 OBJ			=	$(SRC:%.cpp=$(BUILDIR)/%.o)
 DEP			=	$(SRC:%.cpp=$(DEPDIR)/%.d)
 CXX			=	clang++
-CXXFLAGS	=	-g -O0 -Wall -Werror -Wextra -stdlib=libc++ -fsanitize=address -fsanitize=undefined
+CXXFLAGS	=	-g -O0 -Wall -Werror -Wextra -std=c++17 -stdlib=libc++ -pedantic -fsanitize=address -fsanitize=undefined
 CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 RM			=	/bin/rm -rf

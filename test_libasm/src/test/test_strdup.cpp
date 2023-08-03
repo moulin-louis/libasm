@@ -1,23 +1,23 @@
 #include "libasm.h"
 
-static void testing(string src) {
+static void testing(std::string src) {
     static int x;
     char *dest = ft_strdup(src.c_str());
     if (!dest) {
-        cout << RED << "Test " << x << ": " << "Malloc error"<< " " << RESET;
+		std::cout << RED << "\tTest " << x << ": " << "Malloc error"<< " " << RESET;
         return ;
     }
-    bool result = string(dest) == src;
+    bool result = std::string(dest) == src;
     handle_result(result, &x);
-    cout.flush();
+	std::cout.flush();
     free(dest);
 }
 
 void test_strdup(void) {
-    cout << YELLOW << "Testing ft_strdup:" << RESET << endl;
+	std::cout << YELLOW << "\tTesting ft_strdup:" << RESET << std::endl;
     testing("Bonjour"); // Test 0
     testing("123"); // Test 1
     testing("long_string"); // Test 2
     testing(""); // Test 3
-    cout << endl;
+	std::cout << std::endl;
 }

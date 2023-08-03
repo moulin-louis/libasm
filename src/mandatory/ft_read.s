@@ -2,7 +2,7 @@
 section .text
 	global ft_read ;export ft_read
 	extern __errno_location
-ft_read: ; long[$rax] ft_read(int fd[$edi], char *buff[$rsi], unsigned long buff_size[$edi])
+ft_read: ; long[$rax] ft_read(int fd[$edi], char *buff[$rsi], unsigned long buff_size[$edx])
 	mov rax, 0 ;load up syscall code 0 (read) into rax
 	syscall ; calling syscall
 	cmp eax, 0 ; compare the return value with 0

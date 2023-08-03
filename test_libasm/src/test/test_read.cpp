@@ -1,11 +1,11 @@
 #include "libasm.h"
 
-void testing(int fd, const char *str, int size, int expected_errno, int expected_retval) {
+static void testing(int fd, const char *str, uint size, int expected_errno, long expected_retval) {
     static int x;
     bool result;
     errno = 0;
     char buff[100] = {0};
-    int retval = ft_read(fd, buff, size);
+    long retval = ft_read(fd, buff, size);
     //first test
     result = (errno == expected_errno) ? true : false;
     handle_result(result, &x);
@@ -14,8 +14,8 @@ void testing(int fd, const char *str, int size, int expected_errno, int expected
     if (errno == 0) {
         //second test
         result = !memcmp(str, buff, size);
-        cout << (result ? GREEN : RED);
-        cout << "Test " << x++ << ": " << (result ? "OK!" : "KO!") << " ";
+        std::cout << (result ? GREEN : RED);
+		std::cout << "\tTest " << x++ << ": " << (result ? "OK!" : "KO!") << " ";
         //third test
         result = c == -1 || c == str[size];
         handle_result(result, &x);
@@ -23,27 +23,27 @@ void testing(int fd, const char *str, int size, int expected_errno, int expected
         //4r test
     result = retval == expected_retval;
     handle_result(result, &x);
-    cout.flush();
+	std::cout.flush();
 }
 
 
 void test_read(void) {
 	char path_file[] = "./test_file";
-	char path_folder[] = "./libft";
-    cout << YELLOW << "Testing ft_read:" << RESET << endl;
+	char path_folder[] = "./src";
+	std::cout << YELLOW << "\tTesting ft_read:" << RESET << std::endl;
     signal(SIGPIPE, SIG_IGN);
     int fd = open(path_file, O_RDONLY);
-    testing(fd, "loumouli", 0, 0, 0); // test 0-1-2
+    testing(fd, "loumouli", 0, 0, 0);
     close(fd);
     fd = open(path_file, O_RDONLY);
-    testing(fd, "loumouli", 3, 0, 3); // test 3-4-5
+    testing(fd, "loumouli", 3, 0, 3);
     close(fd);
     fd = open(path_file, O_RDONLY);
-    testing(fd, "loumouli", 8, 0, 8); // test 6-7-8
+    testing(fd, "loumouli", 8, 0, 8);
     close(fd);
-    testing(-1, "", 1, EBADF, -1); // test 9-10
-    fd = open(path_folder, O_RDONLY);
-    testing(fd, "", 1, EISDIR, -1); //test11-12
+    testing(-1, "", 1, EBADF, -1);
+	fd = open(path_folder, O_RDONLY);
+    testing(fd, "", 1, EISDIR, -1);
     close(fd);
-    cout << endl;
+	std::cout << std::endl;
 }

@@ -14,7 +14,7 @@ ft_strcmp: ;int[$eax] strcmp(const char *s1[$rdi], const char *s2[$rsi])
 	inc rsi ; increment rsi ptr
 	jmp .start_loop ; start over the loop
 .end_loop:
-	sub ah, al ; subtract to return the right value
+	sub ah, al ;    subtract to return the right value
 	movsx eax, ah ; move the result inside eax but keeping the sign bytes
 	ret ; return
 
