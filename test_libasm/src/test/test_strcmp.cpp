@@ -1,6 +1,6 @@
 #include "libasm.h"
 
-static void testing(std::string str1, std::string str2) {
+static void testing(string str1, string str2) {
     static int x;
 	bool result = false;
 	int of_result = strcmp(str1.c_str(), str2.c_str());
@@ -12,18 +12,18 @@ static void testing(std::string str1, std::string str2) {
 	if (of_result == 0 && my_result == 0)
 		result = true;
     handle_result(result, &x);
-    std::cout.flush();
+    cout.flush();
 }
 
 void test_strcmp(void) {
-    std::cout << YELLOW << "\tTesting ft_strcmp:" << RESET << std::endl;
+    cout << YELLOW << "\tTesting ft_strcmp:" << RESET << endl;
     // I just stole Tripouille test tbh
-    testing("", "");
-    testing("loumouli", "loumouli");
-    testing("loumouli", "louMouli");
-    testing("loumouli", "loumoulI");
-    testing("loumouli", "loumoulix");
-    testing("loumouli", "loumoul");
-    testing("long_string", "long_string");
-    std::cout << std::endl;
+    testing("", ""); //test 0
+    testing("loumouli", "loumouli"); // test 1
+    testing("loumouli", "louMouli"); // test 2
+    testing("loumouli", "loumoulI"); // test 3
+    testing("loumouli", "loumoulix"); // test 4
+    testing("loumouli", "loumoul"); // test 5
+    testing("long_string", "long_string"); // test 6
+    cout << endl;
 }

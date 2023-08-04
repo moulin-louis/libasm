@@ -19,10 +19,8 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
-#ifdef __cplusplus
+//Libasm functions
 extern "C" {
-#endif
-    // Function declarations from the C library here
 	long			ft_read(int fd, char *buff, unsigned int size_buff);
     int             ft_strcmp(const char *s1, const char *s2);
     char            *ft_strcpy(char *dest, const char *src);
@@ -33,11 +31,9 @@ extern "C" {
     void            ft_list_push_front(t_list **head, void *data);
 	void			ft_remove_if(t_list **head, void *data_ref, int (*cmp)(void *, void *), void (*free_fct)(void *));
 	void			ft_list_sort(t_list **begin_list, int (*cmp)(void *, void *));
-
-#ifdef __cplusplus
 }
-#endif
 
+// Test functions
 void            test_read(void);
 void            test_strlen(void);
 void			perf_strlen(void);
@@ -58,4 +54,5 @@ void			ft_push_back(t_list **head, void *data);
 #define         YELLOW "\033[0;33m"
 #define         RESET "\033[0m"
 #define			ITER_TEST 100000000
+
 #endif

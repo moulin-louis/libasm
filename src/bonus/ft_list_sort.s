@@ -1,3 +1,8 @@
+;struct s_list {
+;   void    *content;
+;   s_list  *next;
+;} t_list;
+; sort the list based on the cmp function
 section .text
 	global ft_list_sort ;export ft_list_sort
 ft_list_sort: ; void ft_list_sort(t_list **head($rdi), int(*cmp)($rsi))

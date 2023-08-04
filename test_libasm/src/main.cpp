@@ -1,8 +1,9 @@
 #include "libasm.h"
 #include <string.h>
+
 void handle_result(bool result, int *nbr_test) {
-	std::cout << (result ? GREEN : RED);
-	std::cout << "\t\tTest " << (*nbr_test) << ": " << (result ? "OK!" : "KO!") << " ";
+	cout << (result ? GREEN : RED);
+	cout << "\t\tTest " << (*nbr_test) << ": " << (result ? "OK!" : "KO!") << " ";
     (*nbr_test)++;
 }
 
@@ -22,7 +23,7 @@ int main(int ac, char **av) {
 		bonus = 1;
 		mandatory = 1;
 	}
-    std::cout << GREEN;
+    cout << GREEN;
 	if (mandatory) {
 		cout << "Mandatory Part: " << endl;
 		test_strlen();

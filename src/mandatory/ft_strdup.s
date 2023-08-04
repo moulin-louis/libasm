@@ -4,7 +4,6 @@ section .text
 	extern malloc
 	extern ft_strlen
 	extern ft_strcpy
-
 ft_strdup: ;char *[$rax]ft_strdup(const char *src[$rdi])
     push rdi
 ;	mov r8, rdi ; save src pointer into r8

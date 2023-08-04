@@ -37,7 +37,7 @@ void test_list_sort(void) {
 	ft_list_push_front(&head, strdup("D"));
 	ft_list_push_front(&head, strdup("E"));
 	ft_list_sort(&head, wrap_strcmp);
-	testing(head, wrap_strcmp, 5);
+	testing(head, wrap_strcmp, 5); //test 0-1
 	while (head) {
 		t_list *tmp = head->next;
 		free(head->content);
@@ -51,7 +51,7 @@ void test_list_sort(void) {
 	ft_list_push_front(&head, (void *)3);
 	ft_list_push_front(&head, (void *)4);
 	ft_list_sort(&head, cmp_nbr);
-	testing(head, cmp_nbr, 5);
+	testing(head, cmp_nbr, 5); //test 2-3
 	while (head) {
 		t_list *tmp = head->next;
 		free(head);

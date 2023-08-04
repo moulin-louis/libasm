@@ -21,11 +21,11 @@ static void testing(int in, int out, char *src, uint size, int expected_errno, i
     }
     result = expected_retval == retval;
     handle_result(result, &x);
-    std::cout.flush();
+    cout.flush();
 }
 
 void test_write(void) {
-    std::cout << YELLOW << "\tTesting ft_write:" << RESET << std::endl;
+    cout << YELLOW << "\tTesting ft_write:" << RESET << endl;
 	char str_empty[] = "";
 	char str_test[] = "loumouli";
     signal(SIGPIPE, SIG_IGN);
@@ -47,5 +47,5 @@ void test_write(void) {
     pipe(fd_pipe);
     close(fd_pipe[0]);
     testing(fd_pipe[0], fd_pipe[1], str_empty, 1, EPIPE, -1); // Test 11-12
-	std::cout << std::endl;
+	cout << endl;
 }

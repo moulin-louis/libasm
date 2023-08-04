@@ -2,11 +2,7 @@
 ;   void    *content;
 ;   s_list  *next;
 ;} t_list;
-;
-;Create the function ft_list_remove_if which removes from the list, using free_fct, all elements whose data compared to data_ref using cmp, makes cmp return 0.
-;Function pointed by cmp and by free_fct will be used as follows :
-;(*cmp)(list_ptr->data, data_ref);
-;(*free_fct)(list_ptr->data)
+; Clean node based of cmp function return value using free_fct
 section .text
 	global ft_remove_if ;export ft_remove_if
 ft_remove_if: ; void ft_list_remove_if(t_list **begin_list[rdi], void *data_ref[rsi], int (*cmp)()[rdx], void (*free_fct)(void *)[rcx])
