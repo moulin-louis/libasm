@@ -56,3 +56,4 @@ test_lib.S
 */.idea
 .idea
 .nfs*
+test.c 
