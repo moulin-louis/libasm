@@ -35,9 +35,9 @@ int main(int ac, char **av) {
 	}
 	if (bonus) {
 		cout << "Bonus Part: " << endl;
-//		test_list_size();
-//		test_push_front();
-//		test_remove_if();
+		test_list_size();
+		test_push_front();
+		test_remove_if();
 		test_list_sort();
 	}
 }

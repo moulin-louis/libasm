@@ -58,4 +58,5 @@ void test_remove_if(void) {
         free(head);
         head = tmp;
     }
+	cout << endl;
 }
