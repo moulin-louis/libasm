@@ -1,44 +1,60 @@
 section .text
 	global ft_list_sort ;export ft_list_sort
 ft_list_sort: ; void ft_list_sort(t_list **head($rdi), int(*cmp)($rsi))
-    mov rdi, [rdi] ; switch t_list **head to t_list *head
-	sub rbp, 20 ; allocate space for 2 64 bits ptr and one 32 bits int
-	mov QWORD [rbp], 0x0 ; init lptr to NULL
-.1rt_segment:
-	mov QWORD [rbp+8], rdi; init ptr1 to head
-	mov DWORD [rbp+16], 0x0 ; init swapped to 0
-.2nd_segment:
-    mov rdx, QWORD [rbp+8]
-    add rdx, 8
-    mov rdx, QWORD [rdx]
-    cmp rdx, QWORD[rbp] ; compare ptr1->next != lptr
-    je .4th_segment ; if cmp false, jump
-	mov rdx, QWORD [rbp+8] ; load the address of data for ptr1
-	mov rdx, QWORD [rdx] ; deref the addres and get the value, store inside rdx
-	mov rax, QWORD [rbp+8]
-	add rax, 8
-	mov rax, QWORD [rax]
-	mov rax, QWORD [rax]
-	cmp rdx, rax ; if (ptr1->data > ptr1->next->data)
-	jle .3rd_segment ; jump if ptr1->data <= ptr1->next->data
-    mov rax, QWORD [rbp+8] ; load ptr1
-    mov r12, QWORD [rax] ; deref ptr1, attempt to save (*ptr1).data
-    mov rsi, QWORD [rbp+8]
-    mov rsi, QWORD [rsi]
-    add rsi, 8
-    mov rsi, QWORD [rsi]
+    push rbp ; save base stack pointer
+    mov rbp, rsp ;update base pointer
+	sub rsp, 6 * 8 ; allocate space for 6 64 bits ptr
+	cmp rdi, 0x0
+	je .end_loop
+	mov QWORD [rsp], rdi ; store t_list **head
+	mov QWORD [rsp + 8], rsi ; store cmp fn
+	mov rdi, QWORD [rdi] ; deref head
+	mov QWORD [rsp + 16], rdi ; t_list *tmp = *head;
+	mov QWORD [rsp + 24], 0x0 ; t_list *node = NULL;
+	mov QWORD [rsp + 32], 0x0 ; void *data = 0;
+.start_loop:
+    mov rax, QWORD [rsp+16] ; load tmp
+    cmp rax, 0x0 ; check if tmp if NULL
+    je .end_loop ; jump if its NULL
+    mov rax, QWORD [rsp+16] ; load tmp
+    mov rax, QWORD [rax+8] ; load tmp->next
+    mov QWORD [rsp+24], rax; node = tmp->next
+.start_2nd_loop:
+    mov rax, QWORD [rsp+24] ; load node
+    cmp rax, 0x0 ; compare node with NULL
+    je .end_2nd_loop ; jump if its NULL
+    mov rdi, QWORD [rsp+16] ; load tmp->content
+    mov rdi, QWORD [rdi] ; load value of tmp->content
+    mov rsi, QWORD [rsp+24] ; load node->content
+    mov rsi, QWORD [rsi] ; load value of node->content
+    call QWORD [rsp+8] ; call cmp fn
+    cmp rax, 0x0 ; compare return value with 0
+    jl .end_if
+    mov rax, QWORD [rsp+16] ; load tmp->content
+    mov rax, QWORD [rax] ; load value of tmp->content
+    mov QWORD [rsp+32], rax ; data = tmp->content
 
-.3rd_segment:
-    mov rax, QWORD [rbp+8]
-    add rax, 8
-    mov QWORD [rbp+8], rax
-    jmp .2nd_segment
-.4th_segment:
-    mov rax, QWORD [rbp]
-    mov rax, QWORD [rbp+8]
-    jmp .1rt_segment
-.5th_segment:
-    add rbp, 0x14
+    mov rax, QWORD [rsp+16] ; load tmp->content
+    mov rdi, QWORD [rsp+24] ; load node->content
+    mov rdi, QWORD [rdi] ; load value of node->content
+    mov [rax], rdi ; tmp->content = node->content
+
+    mov rax, QWORD [rsp+24] ; load node->content
+    mov rdi, QWORD [rsp+32] ; load data;
+    mov [rax], rdi; ; node->content = data;
+.end_if:
+    mov rax, QWORD [rsp+24] ; load node
+    mov rax, QWORD [rax+8] ; load value of node->next
+    mov QWORD [rsp+24], rax ; node = node->next
+    jmp .start_2nd_loop
+.end_2nd_loop:
+    mov rax, QWORD [rsp+16] ; load tmp
+    mov rax, QWORD [rax+8] ; load value of tmp->next
+    mov QWORD [rsp+16], rax ;tmp = tmp->next
+    jmp .start_loop
+.end_loop:
+    add rsp, 6 * 8;clean the stackF
+    pop rbp ;update base pointer to the old one saved
 	ret ; exiting the function
 
 ; section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning

@@ -1,24 +1,24 @@
 #include "libasm.h"
 
+void ft_push_back(t_list **head, void *data) {
+	t_list *tmp = *head;
+	t_list *node = (t_list *)calloc(1, sizeof(t_list));
+	node->content = data;
+	if (!tmp) {
+		*head = node;
+		return ;
+	}
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = node;
+}
+
 static int cmp(void *a, void *b) {
     return ((a == b) ? 0 : 1);
 }
 
 static void free_node(void *ptr) {
 	free(ptr);
-}
-
-static void ft_push_back(t_list **head, void *data) {
-    t_list *tmp = *head;
-    t_list *node = (t_list *)calloc(1, sizeof(t_list));
-    node->content = data;
-    if (!tmp) {
-        *head = node;
-        return ;
-    }
-    while (tmp->next)
-        tmp = tmp->next;
-    tmp->next = node;
 }
 
 static void testing(t_list *head, unsigned int expected_size) {

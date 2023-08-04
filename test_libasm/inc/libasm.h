@@ -32,7 +32,8 @@ extern "C" {
     unsigned int    ft_list_size(t_list *head);
     void            ft_list_push_front(t_list **head, void *data);
 	void			ft_remove_if(t_list **head, void *data_ref, int (*cmp)(void *, void *), void (*free_fct)(void *));
-    
+	void			ft_list_sort(t_list **begin_list, int (*cmp)(void *, void *));
+
 #ifdef __cplusplus
 }
 #endif
@@ -47,7 +48,9 @@ void            test_write(void);
 void            test_list_size(void);
 void			test_push_front(void);
 void			test_remove_if(void);
+void			test_list_sort(void);
 void            handle_result(bool result, int *);
+void			ft_push_back(t_list **head, void *data);
 
 #define        	get_time() duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()
 #define         RED "\033[0;31m"

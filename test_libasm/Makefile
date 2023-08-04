@@ -12,6 +12,7 @@ SRC			=	$(addprefix src/,			\
 						main.cpp			\
 						$(addprefix test/,	\
 							test_list_size.cpp\
+							test_list_sort.cpp\
 							test_push_front.cpp\
 							test_read.cpp	\
 							test_remove_if.cpp	\
