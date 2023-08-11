@@ -19,4 +19,4 @@ ft_list_push_front: ;void	ft_list_push_front(t_list **beg_list($rdi), void *data
     mov [r9], rax ; *head = result
 	ret ; return
 
-    ; section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning
+     section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning

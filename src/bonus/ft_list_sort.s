@@ -62,4 +62,4 @@ ft_list_sort: ; void ft_list_sort(t_list **head($rdi), int(*cmp)($rsi))
     pop rbp ;update base pointer to the old one saved
 	ret ; exiting the function
 
-; section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning
+ section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning

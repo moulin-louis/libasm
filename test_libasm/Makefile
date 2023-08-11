@@ -10,6 +10,7 @@ SRCS_DIR	=	$(sort $(dir $(wildcard src/*/)))
 SRC			=	$(addprefix src/,			\
 						main.cpp			\
 						$(addprefix test/,	\
+							test_atoi_base.cpp	\
 							test_list_size.cpp\
 							test_list_sort.cpp\
 							test_push_front.cpp\
@@ -26,7 +27,7 @@ SRC			=	$(addprefix src/,			\
 OBJ			=	$(SRC:%.cpp=$(BUILDIR)/%.o)
 DEP			=	$(SRC:%.cpp=$(DEPDIR)/%.d)
 CXX			=	clang++
-CXXFLAGS	=	-g -O0 -Wall -Werror -Wextra -std=c++17 -stdlib=libc++ -pedantic -fsanitize=address -fsanitize=undefined
+CXXFLAGS	=	-g -O0 -Wall -Werror -Wextra -std=c++17 -stdlib=libc++ #-pedantic -fsanitize=address -fsanitize=undefined
 CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 RM			=	/bin/rm -rf

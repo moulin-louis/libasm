@@ -31,6 +31,7 @@ extern "C" {
     void            ft_list_push_front(t_list **head, void *data);
 	void			ft_remove_if(t_list **head, void *data_ref, int (*cmp)(void *, void *), void (*free_fct)(void *));
 	void			ft_list_sort(t_list **begin_list, int (*cmp)(void *, void *));
+	int 			ft_atoi_base(char *str, char *base);
 }
 
 // Test functions
@@ -45,6 +46,7 @@ void            test_list_size(void);
 void			test_push_front(void);
 void			test_remove_if(void);
 void			test_list_sort(void);
+void			test_atoi_base(void);
 void            handle_result(bool result, int *);
 void			ft_push_back(t_list **head, void *data);
 

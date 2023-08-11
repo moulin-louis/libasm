@@ -74,4 +74,4 @@ ft_remove_if: ; void ft_list_remove_if(t_list **begin_list[rdi], void *data_ref[
     pop rbp ;update base pointer to the old one saved
     ret ; end the loop
 
-; section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning
+ section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning
