@@ -11,7 +11,7 @@ ft_list_size: ; unsigned int[$rax] ft_list_size(t_list *head[$rdi])
 	je	.end_loop ; jump if null
 .start_loop:
 	mov rdi, QWORD [rdi+0x8] ; load the *next* value
-	add eax, 0x1 ; add one to the result
+	inc eax ; add one to the result
 	test rdi, rdi ; test if rdi is non-null
 	jne .start_loop ; jump back if non-null
 .end_loop:
