@@ -43,6 +43,8 @@ int main(int ac, char **av) {
 //		test_list_sort();
 		test_atoi_base();
 	}
+    if (!bonus && !mandatory)
+        cout << RED << "No test selected" << RESET << endl;
 }
 
 
