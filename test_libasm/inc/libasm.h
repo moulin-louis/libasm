@@ -31,7 +31,7 @@ extern "C" {
     void            ft_list_push_front(t_list **head, void *data);
 	void			ft_remove_if(t_list **head, void *data_ref, int (*cmp)(void *, void *), void (*free_fct)(void *));
 	void			ft_list_sort(t_list **begin_list, int (*cmp)(void *, void *));
-	int 			ft_atoi_base(char *str, char *base);
+	int 			ft_atoi_base(const char *str, const char *base);
 }
 
 // Test functions
