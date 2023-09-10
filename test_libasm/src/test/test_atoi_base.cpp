@@ -35,7 +35,26 @@ void test_atoi_base(void) {
     tmp = "-101";
     testing(tmp, base, -5); //Test 8
     tmp = "2a";
-    base = ""
+    base = "\t0123456789abcdef";
+    testing(tmp, base, 0); //Test 9
+    base = "\n0123456789abcdef";
+    testing(tmp, base, 0); //Test 10
+    base = "\v0123456789abcdef";
+    testing(tmp, base, 0); //Test 11
+    base = "0123456789abcdef\f";
+    testing(tmp, base, 0); //Test 12
+    base = "012345678\r9abcdef";
+    testing(tmp, base, 0); //Test 13
+    base = "+0123456789abcdef";
+    testing(tmp, base, 0); //Test 14
+    base = "012345678-9abcdef";
+    testing(tmp, base, 0); //Test 15
+    base = "00123456789abcdef";
+    testing(tmp, base, 0); //Test 16
+    base = "01234567809abcdef";
+    testing(tmp, base, 0); //Test 17
+    base = "0123456789abcdef0";
+    testing(tmp, base, 0); //Test 18
     cout << endl;
 	return ;
 }

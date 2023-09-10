@@ -1,10 +1,67 @@
 section .text
 	global ft_atoi_base ;export ft_atoi_base
 	extern ft_strlen ; import libasm ft_strlen implementation
-base_error: ; int[eax]		base_error(const char *base[rdi])
-    push rdi ; save rdi into the stack
+
+base_error_1: ; int[eax]		base_error_1(const char *base[rdi])
+    xor eax, eax
+.tmp_1:
+    mov sil, BYTE [rdi+rax]
+    mov ecx, eax
+    mov r8d, eax
+    test sil, sil
+    je .tmp_4
+    or rdx, 0xffffffffffffffff
+    dec ecx
+.tmp_2:
+    mov r8b, BYTE [rdi+rdx+1]
+    test r8b, r8b
+    je .tmp_3
+    cmp ecx, edx
+    setne r9b
+    cmp r8b, sil
+    sete r8b
+    inc rdx
+    test r9b, r8b
+    je .tmp_2
+    xor r8d, r8d
+    jmp .tmp_4
+.tmp_3:
+    inc rax
+    jmp .tmp_1
+.tmp_4:
+    mov eax, r8d
+    ret
+base_error_2: ; int[eax]		base_error_2(const char *base[rdi])
     call ft_strlen ; call ft_strlen on base
-    pop rdi ; restore rdi ptr
+    push rdi ; save rdi into the stack
+.start_loop_error:
+    mov ah, BYTE [rdi] ; load one byte of rdi
+    cmp ah, 0x0
+    je .end_loop_error
+    cmp ah, 9 ; cmp ah with \t
+    je .error_found
+    cmp ah, 10 ; cmp ah with \n
+    je .error_found
+    cmp ah, 11 ; cmp ah with \v
+    je .error_found
+    cmp ah, 12 ; cmp ah with \f
+    je .error_found
+    cmp ah, 13 ; cmp ah with \r
+    je .error_found
+    cmp ah, 32 ; cmp ah with char ' '
+    je .error_found
+    cmp ah, 43 ; cmp ah with char '+'
+    je .error_found
+    cmp ah, 45 ; cmp ah with char '-'
+    je .error_found
+    inc rdi ; increment rdi ptr
+    jmp .start_loop_error
+.error_found:
+    pop rdi ; restore rdi old value
+    mov eax, -1 ; return value is -1
+    ret ; end fn
+.end_loop_error:
+    pop rdi ; restore rdi old value
     ret ; return return value of ft_strlen
     ; WIP, NEED TO CHECK FOR BASE ERROR
 
@@ -81,15 +138,22 @@ base_search: ;int[eax]		base_search(const char *str[rdi], int *i[rsi])
 ft_atoi_base: ;int[rax] ft_atoi_base(const char *str[rdi], const char *base[rsi])
     push rbp ; save base stack pointer
     mov rbp, rsp ;update base pointer
-    sub rsp, 4 * 5 ; allocate enough space for 5 int
-    and rsp, -16 ; align the stack to 16bits boundaries (I think ?)
+    sub rsp, 32 ; allocate enough space for 5 int
+    push rdi
+    push rsi
+    mov rdi, rsi ; move rsi into rdi
+    call base_error_1 ; call base_error_1
+    pop rsi
+    pop rdi
+    cmp eax, 1 ; compare return value with 0
+    jl .error_handling ; jump if less than 0
     mov r8, rdi ; save rdi into r8
     mov rdi, rsi ; move rsi into rdi
-    call base_error ; call base_error
+    call base_error_2 ; call base_error_2
     mov rdi, r8 ; restore value of rdi
     cmp eax, 2 ; compare return value with 2
-    jl .end_fn ; jump if less than 2, check base_error (eax == -1) and length base (eax < 2)
-    mov DWORD [rsp], eax ; int len = return value of base_error(base);
+    jl .error_handling ; jump if less than 2, check base_error_2 (eax == -1) and length base (eax < 2)
+    mov DWORD [rsp], eax ; int len = return value of base_error_2(base);
     mov DWORD [rsp+4], 0x0 ; int i = 0;
     mov r8, rsi ; save rsi inside r8
     mov rsi, rsp ; load value of rsp into rsi
@@ -128,5 +192,9 @@ ft_atoi_base: ;int[rax] ft_atoi_base(const char *str[rdi], const char *base[rsi]
     add rsp, 32 ; clean the stack
     pop rbp ;update base pointer to the old one saved
 	ret ; exiting the function
-
+.error_handling:
+    mov eax, 0
+    add rsp, 32 ; clean the stack
+    pop rbp ;update base pointer to the old one saved
+    ret
  section .note.GNU-stack noalloc noexec nowrite progbits ;use to silence some warning
