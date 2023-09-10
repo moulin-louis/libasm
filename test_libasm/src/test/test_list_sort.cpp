@@ -29,7 +29,7 @@ int cmp_nbr(uint64_t n1, uint64_t n2) {
 	return (n1 > n2 ? 1 : -1);
 }
 
-static void print_list(t_list *head) {
+void print_list(t_list *head) {
 	while (head) {
 		cout << "-\t" << (char *)head->content << endl;
 		head = head->next;
@@ -39,23 +39,31 @@ static void print_list(t_list *head) {
 void test_list_sort() {
 	cout << YELLOW << "\tTesting test_list_sort:" << RESET << endl;
     {
-        t_list *head;
-        ft_list_push_front(&head, (uint64_t)strdup("apple"));
-        ft_list_push_front(&head, (uint64_t)strdup("milk"));
-        ft_list_push_front(&head, (uint64_t)strdup("bread"));
-        cout << "Before:" << endl;
-        print_list(head);
-        cout << endl;
+        t_list *head = (t_list *)malloc(sizeof(t_list));
+        head->content = 0x2a; // == 42
+        head->next = (t_list *)malloc(sizeof(t_list));
+        head->next->content =0x2b;
+        head->next->next = NULL;
         ft_list_sort(&head, wrap_strcmp);
-        cout << "After:" << endl;
-        print_list(head);
-        while (head) {
-            t_list *tmp = head->next;
-            free((void *)head->content);
-            free(head);
-            head = tmp;
-        }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     t_list *head = nullptr;
