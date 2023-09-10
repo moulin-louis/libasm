@@ -3,34 +3,35 @@ section .text
 	extern ft_strlen ; import libasm ft_strlen implementation
 
 base_error_1: ; int[eax]		base_error_1(const char *base[rdi])
-    xor eax, eax
+    xor eax, eax ; set eax to 0
 .tmp_1:
-    mov sil, BYTE [rdi+rax]
-    mov ecx, eax
-    mov r8d, eax
-    test sil, sil
-    je .tmp_4
-    or rdx, 0xffffffffffffffff
-    dec ecx
+    mov sil, BYTE [rdi+rax] ; load base[rax] to sil
+    mov ecx, eax ; mov eax to ecx
+    mov r8d, eax ; mov eax to r8d
+    test sil, sil ; test sil
+    je .tmp_4 ; jump if 0
+    or rdx, 0xffffffffffffffff ; rdx = -1
+    dec ecx ; decrement ecx by one
 .tmp_2:
-    mov r8b, BYTE [rdi+rdx+1]
-    test r8b, r8b
-    je .tmp_3
-    cmp ecx, edx
-    setne r9b
-    cmp r8b, sil
-    sete r8b
-    inc rdx
-    test r9b, r8b
-    je .tmp_2
-    xor r8d, r8d
-    jmp .tmp_4
+    mov r8b, BYTE [rdi+rdx+1] ; load base[rdx+1] to r8b
+    test r8b, r8b ; test r8b
+    je .tmp_3 ; jump if r8b == 0
+    cmp ecx, edx ; compare ecx and edx
+    setne r9b ; set r9b to 1 if ecx != edx
+    cmp r8b, sil ; compare r8b to sil
+    sete r8b ; set r8b to 1 if r8b == sil
+    inc rdx ; increment rdx by one
+    test r9b, r8b ; r9b AND r8b
+    je .tmp_2 ; jump if (r9b AND r8b) == 0
+    xor r8d, r8d ; r8d = 0
+    jmp .tmp_4 ; jump
 .tmp_3:
-    inc rax
-    jmp .tmp_1
+    inc rax ; increment rax by one
+    jmp .tmp_1 ; start over
 .tmp_4:
-    mov eax, r8d
-    ret
+    mov eax, r8d ; mov r8d inside eax
+    ret ; return
+
 base_error_2: ; int[eax]		base_error_2(const char *base[rdi])
     call ft_strlen ; call ft_strlen on base
     push rdi ; save rdi into the stack
