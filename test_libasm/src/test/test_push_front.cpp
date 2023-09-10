@@ -14,9 +14,9 @@ static void testing(t_list **head, void *data, unsigned int expected_size) {
 	cout.flush();
 }
 
-void test_push_front(void) {
+void test_push_front() {
 	cout << YELLOW << "\tTesting ft_list_push_front:" << RESET << endl;
-	t_list *head = static_cast<t_list *>(calloc(1, 16));
+	auto head = static_cast<t_list *>(calloc(1, 16));
 	char str[] = "Bonjour";
 	testing(&head, nullptr, 2); //Test 0,1
 	testing(&head, reinterpret_cast<void *>(1), 3); //Test 2,3

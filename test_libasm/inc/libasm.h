@@ -35,22 +35,21 @@ extern "C" {
 }
 
 // Test functions
-void            test_read(void);
-void            test_strlen(void);
-void			perf_strlen(void);
-void            test_strcmp(void);
-void            test_strcpy(void);
-void            test_strdup(void);
-void            test_write(void);
-void            test_list_size(void);
-void			test_push_front(void);
-void			test_remove_if(void);
-void			test_list_sort(void);
-void			test_atoi_base(void);
+void            test_read();
+void            test_strlen();
+void			perf_strlen();
+void            test_strcmp();
+void            test_strcpy();
+void            test_strdup();
+void            test_write();
+void            test_list_size();
+void			test_push_front();
+void			test_remove_if();
+void			test_list_sort();
+void			test_atoi_base();
 void            handle_result(bool result, int *);
 void			ft_push_back(t_list **head, void *data);
 
-#define        	get_time() duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()
 #define         RED "\033[0;31m"
 #define         GREEN "\033[0;32m"
 #define         YELLOW "\033[0;33m"

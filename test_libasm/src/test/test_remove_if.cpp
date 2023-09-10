@@ -2,7 +2,7 @@
 
 void ft_push_back(t_list **head, void *data) {
 	t_list *tmp = *head;
-	t_list *node = (t_list *)calloc(1, sizeof(t_list));
+	auto node = (t_list *)calloc(1, sizeof(t_list));
 	node->content = data;
 	if (!tmp) {
 		*head = node;
@@ -29,29 +29,29 @@ static void testing(t_list *head, unsigned int expected_size) {
 }
 
 
-void test_remove_if(void) {
-    t_list *head = NULL;
-    t_list *tmp = NULL;
+void test_remove_if() {
+    t_list *head = nullptr;
+    t_list *tmp;
     cout << YELLOW << "\tTesting ft_remove_if:" << RESET << endl;
-    ft_push_back(&head, (void *)0);
+    ft_push_back(&head, nullptr);
     ft_push_back(&head, (void *)1);
     ft_push_back(&head, (void *)2);
-    ft_remove_if(&head, (void *)0, cmp, free_node);
+    ft_remove_if(&head, nullptr, cmp, free_node);
     testing(head, 2); // Test 0
     ft_remove_if(&head, (void *)2, cmp, free_node);
     testing(head, 1); // Test 1
     ft_remove_if(&head, (void *)1, cmp, free_node);
     testing(head, 0); // Test 2
-    ft_remove_if(&head, (void *)0, cmp, free_node);
+    ft_remove_if(&head, nullptr, cmp, free_node);
     testing(head, 0); // Test 3
-    ft_push_back(&head, (void *)0);
+    ft_push_back(&head, nullptr);
     ft_push_back(&head, (void *)1);
     ft_push_back(&head, (void *)2);
     ft_remove_if(&head, (void *)2, cmp, free_node);
     testing(head, 2); // Test 4
     ft_remove_if(&head, (void *)1, cmp, free_node);
     testing(head, 1); // Test 5
-    ft_remove_if(&head, (void *)0, cmp, free_node);
+    ft_remove_if(&head, nullptr, cmp, free_node);
     testing(head, 0); // Test 6
     while (head) {
         tmp = head->next;

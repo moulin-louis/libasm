@@ -1,6 +1,6 @@
 #include "libasm.h"
 
-static void testing(const string base, const string input, int expected_output) {
+static void testing(const string& base, const string& input, int expected_output) {
 	static int x;
     int tmp = ft_atoi_base(base.c_str(), input.c_str());
 	bool result = tmp == expected_output;
@@ -12,7 +12,7 @@ static void testing(const string base, const string input, int expected_output) 
 	cout.flush();
 }
 
-void test_atoi_base(void) {
+void test_atoi_base() {
 	cout << YELLOW << "\tTesting ft_atoi_base:" << RESET << endl;
 	string tmp = "2a";
     string base = "0123456789abcdef";
@@ -56,5 +56,4 @@ void test_atoi_base(void) {
     base = "0123456789abcdef0";
     testing(tmp, base, 0); //Test 18
     cout << endl;
-	return ;
 }

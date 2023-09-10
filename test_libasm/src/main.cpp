@@ -1,5 +1,4 @@
 #include "libasm.h"
-#include <string.h>
 
 void handle_result(bool result, int *nbr_test) {
 	cout << (result ? GREEN : RED);
