@@ -140,6 +140,10 @@ ft_atoi_base: ;int[rax] ft_atoi_base(const char *str[rdi], const char *base[rsi]
     push rbp ; save base stack pointer
     mov rbp, rsp ;update base pointer
     sub rsp, 32 ; allocate enough space for 5 int
+    cmp rdi, 0x0
+    je .error_handling
+    cmp rsi, 0x0
+    je .error_handling
     push rdi
     push rsi
     mov rdi, rsi ; move rsi into rdi

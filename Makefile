@@ -25,7 +25,7 @@ SRC_ASM		=	$(addprefix src/,			\
 						ft_list_push_front.s\
 						ft_list_size.s		\
 						ft_list_sort.s		\
-						ft_remove_if.s		\
+						ft_list_remove_if.s		\
 					)						\
 				)
 
@@ -99,6 +99,8 @@ fclean:			clean
 				@$(RM) $(BUILDIR) $(NAME)
 				@printf "$(DELPREV)Build directory and library deleted\n"
 				@$(MAKE) -C test_libasm --no-print-directory fclean
+
+bonus: all
 
 re:				fclean
 				@$(MAKE) -s all

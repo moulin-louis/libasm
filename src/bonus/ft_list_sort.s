@@ -1,5 +1,5 @@
 ;struct s_list {
-;   void    *content;
+;   uint64_t content;
 ;   s_list  *next;
 ;} t_list;
 ; sort the list based on the cmp function
@@ -8,21 +8,22 @@ section .text
 ft_list_sort: ; void ft_list_sort(t_list **head($rdi), int(*cmp)($rsi))
     push rbp ; save base stack pointer
     mov rbp, rsp ;update base pointer
-	sub rsp, 6 * 8 ; allocate space for 6 64 bits ptr
-	cmp rdi, 0x0
-	je .end_loop
-	mov QWORD [rsp], rdi ; store t_list **head
+	sub rsp, 48 ; allocate space for 6 64 bits ptr
+	cmp rdi, 0x0 ; cmp rdi with 0
+	je .end_loop ; jump if equal
+	cmp rsi, 0x0 ; cmp rsi with 0
+    je .end_loop ; jump if equal
 	mov QWORD [rsp + 8], rsi ; store cmp fn
 	mov rdi, QWORD [rdi] ; deref head
 	mov QWORD [rsp + 16], rdi ; t_list *tmp = *head;
 	mov QWORD [rsp + 24], 0x0 ; t_list *node = NULL;
-	mov QWORD [rsp + 32], 0x0 ; void *data = 0;
+	mov QWORD [rsp + 32], 0x0 ; uint64_t data = 0;
 .start_loop:
     mov rax, QWORD [rsp+16] ; load tmp
     cmp rax, 0x0 ; check if tmp if NULL
     je .end_loop ; jump if its NULL
-    mov rax, QWORD [rsp+16] ; load tmp
-    mov rax, QWORD [rax+8] ; load tmp->next
+    add rax, 8 ; rax == tmp->next
+    mov rax, QWORD [rax] ; load value of tmp->next
     mov QWORD [rsp+24], rax; node = tmp->next
 .start_2nd_loop:
     mov rax, QWORD [rsp+24] ; load node
@@ -38,12 +39,10 @@ ft_list_sort: ; void ft_list_sort(t_list **head($rdi), int(*cmp)($rsi))
     mov rax, QWORD [rsp+16] ; load tmp->content
     mov rax, QWORD [rax] ; load value of tmp->content
     mov QWORD [rsp+32], rax ; data = tmp->content
-
     mov rax, QWORD [rsp+16] ; load tmp->content
     mov rdi, QWORD [rsp+24] ; load node->content
     mov rdi, QWORD [rdi] ; load value of node->content
     mov [rax], rdi ; tmp->content = node->content
-
     mov rax, QWORD [rsp+24] ; load node->content
     mov rdi, QWORD [rsp+32] ; load data;
     mov [rax], rdi; ; node->content = data;
@@ -58,7 +57,7 @@ ft_list_sort: ; void ft_list_sort(t_list **head($rdi), int(*cmp)($rsi))
     mov QWORD [rsp+16], rax ;tmp = tmp->next
     jmp .start_loop
 .end_loop:
-    add rsp, 6 * 8;clean the stackF
+    add rsp, 48 ;clean the stack
     pop rbp ;update base pointer to the old one saved
 	ret ; exiting the function
 
