@@ -34,7 +34,7 @@ DEP			=	$(SRC_ASM:%.s=$(DEPDIR)/%.d)
 
 ASM_COMP	=	nasm
 ASM_FLAGS	=	-f elf64 -wall -g -O0
-CXXFLAGS	=	-g -O0 $(addprefix -I, $(INCLDIR))
+CXXFLAGS	=	-gdbg -O0 $(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MP -MF $(DEPDIR)/$*.d
 RM			=	/bin/rm -rf
 

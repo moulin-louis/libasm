@@ -1,16 +1,12 @@
-;struct s_list {
-;   void    *content;
-;   s_list  *next;
-;} t_list;
-; Clean node based of cmp function return value using free_fct
 section .text
 	global ft_list_remove_if ;export ft_remove_if
+    extern free
 ft_list_remove_if: ; void ft_list_remove_if(t_list **begin_list[rdi], void *data_ref[rsi], int (*cmp)()[rdx], void (*free_fct)(void *)[rcx])
     push rbp ; save base stack pointer
     mov rbp, rsp ;update base pointer
     sub rsp, 8 * 6 ; allocate 6 * 8 bytes to save 6 64 bits pointer
-    cmp rdi, 0x0
-    je .end_loop
+    test rdi, rdi ; test rdi
+    je .end_loop ; jump if its null
     mov [rsp], rdi ; head save in the stack
     mov [rsp+8], rsi ; data_ref save in the stack
     mov [rsp+16], rdx ; cmp save in the stack
@@ -21,8 +17,8 @@ ft_list_remove_if: ; void ft_list_remove_if(t_list **begin_list[rdi], void *data
 .start_loop:
     cmp QWORD [rsp+32], 0x0 ; compare tmp with NULL
     je .end_loop ; jump if equal
-    mov rdi, QWORD [rsp+32] ; load tmp->content
-    mov rdi, [rdi]
+    mov rdi, QWORD [rsp+32] ; load tmp
+    mov rdi, [rdi] ; deref tmp
     mov rsi, QWORD [rsp+8] ; load data_ref
     mov rax, QWORD [rsp+16] ; load cmp fn
     call rax ; call cmp
@@ -39,8 +35,10 @@ ft_list_remove_if: ; void ft_list_remove_if(t_list **begin_list[rdi], void *data
     mov rdi, [rdi] ; load value of tmp->next
     mov [rax], rdi ;prev->next = tmp->next, write rdi value inside memory location stored inside rax
     mov rdi, QWORD [rsp+32] ; load tmp into rdi
-    ;free_fct(tmp)
+    mov rdi, QWORD [rdi]
     call QWORD [rsp+24] ; call free_fct on tmp loaded in rdi
+    mov rdi, QWORD [rsp+32] ; load tmp into rdi
+    call free wrt ..plt
     ;tmp = prev->next
     mov rax, QWORD [rsp+40] ; load prev into rax
     mov rax, [rax+8] ; load prev->next into rax

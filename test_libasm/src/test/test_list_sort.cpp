@@ -1,8 +1,52 @@
 #include "libasm.h"
 
-void testing(t_list *head, int(*cmp)(uint64_t, uint64_t)) {
+t_list *init(int mode) {
+    t_list *result = nullptr;
+    switch (mode) {
+        case 1:
+            ft_list_push_front(&result, 42);
+            ft_list_push_front(&result, 44);
+            break;
+        case 2:
+            ft_list_push_front(&result, (uint64_t)strdup("A"));
+            ft_list_push_front(&result, (uint64_t)strdup("B"));
+            ft_list_push_front(&result, (uint64_t)strdup("C"));
+            ft_list_push_front(&result, (uint64_t)strdup("D"));
+            ft_list_push_front(&result, (uint64_t)strdup("E"));
+            break;
+        case 3:
+            ft_list_push_front(&result, 0);
+            ft_list_push_front(&result, 1);
+            ft_list_push_front(&result, 2);
+            ft_list_push_front(&result, 3);
+            ft_list_push_front(&result, 4);
+            break ;
+    }
+    return (result);
+}
+
+void clean(int mode, t_list *head) {
+    switch (mode) {
+        case 1:
+            while(head) {
+                t_list *tmp = head->next;
+                free(head);
+                head = tmp;
+            }
+            break;
+        case 2:
+            while(head) {
+                t_list *tmp = head->next;
+                free((void *)head->content);
+                free(head);
+                head = tmp;
+            }
+    }
+}
+
+void testing(t_list *head, int(*cmp)(uint64_t, uint64_t), uint expected_size) {
 	static int x;
-	bool result = ft_list_size(head) == 5;
+	bool result = ft_list_size(head) == expected_size;
 	handle_result(result, &x);
 	result = true;
 	while (head) {
@@ -19,80 +63,55 @@ void testing(t_list *head, int(*cmp)(uint64_t, uint64_t)) {
 	cout.flush();
 }
 
+void print(int mode, t_list *head) {
+  printf("\n");
+  switch (mode) {
+    case 1:
+      while (head) {
+        printf("- %lu\n", head->content);
+        head = head->next;
+      }
+      break;
+    case 2:
+      while (head) {
+        printf("- %s\n", (char*)head->content);
+        head = head->next;
+      }
+      break;
+  }
+}
+
 int wrap_strcmp(uint64_t s1, uint64_t s2) {
-	return (strcmp((const char *)s1, (const char *)s2));
+  const char *str1 = (const char *)s1;
+  const char *str2 = (const char *)s2;
+  int result = strcmp(str1, str2);
+	return (result);
 }
 
 int cmp_nbr(uint64_t n1, uint64_t n2) {
-	if (n1 == n2)
-		return (0);
-	return (n1 > n2 ? 1 : -1);
-}
-
-void print_list(t_list *head) {
-	while (head) {
-		cout << "-\t" << (char *)head->content << endl;
-		head = head->next;
-	}
+    return (n1 - n2);
 }
 
 void test_list_sort() {
 	cout << YELLOW << "\tTesting test_list_sort:" << RESET << endl;
     {
-        t_list *head = (t_list *)malloc(sizeof(t_list));
-        head->content = 0x2a; // == 42
-        head->next = (t_list *)malloc(sizeof(t_list));
-        head->next->content =0x2b;
-        head->next->next = NULL;
-        ft_list_sort(&head, wrap_strcmp);
+        t_list *head = init(1);
+        ft_list_sort(&head, cmp_nbr);
+        testing(head, cmp_nbr, 2);
+        clean(1, head);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    t_list *head = nullptr;
-    ft_list_push_front(&head, (uint64_t)strdup("A"));
-	ft_list_push_front(&head, (uint64_t)strdup("B"));
-	ft_list_push_front(&head, (uint64_t)strdup("C"));
-	ft_list_push_front(&head, (uint64_t)strdup("D"));
-	ft_list_push_front(&head, (uint64_t)strdup("E"));
-	ft_list_sort(&head, wrap_strcmp);
-	testing(head, wrap_strcmp); //test 0-1
-	while (head) {
-		t_list *tmp = head->next;
-		free((void *)head->content);
-		free(head);
-		head = tmp;
-	}
-	head = nullptr;
-	ft_list_push_front(&head, 0);
-	ft_list_push_front(&head, 1);
-	ft_list_push_front(&head, 2);
-	ft_list_push_front(&head, 3);
-	ft_list_push_front(&head, 4);
-	ft_list_sort(&head, cmp_nbr);
-	testing(head, cmp_nbr); //test 2-3
-    while (head) {
-	    t_list *tmp = head->next;
-	    free(head);
-		head = tmp;
-	}
+    {
+        t_list *head = init(2);
+        ft_list_sort(&head, wrap_strcmp);
+        testing(head, wrap_strcmp, 5); //test 0-1
+        clean(2, head);
+    }
+    {
+        t_list *head = init(3);
+        ft_list_sort(&head, cmp_nbr);
+        testing(head, cmp_nbr, 5); //test 2-3
+        clean(1, head);
+    }
 	cout << endl;
 }
 
