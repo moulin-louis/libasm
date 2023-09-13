@@ -33,7 +33,7 @@ OBJ			=	$(SRC_ASM:%.s=$(BUILDIR)/%.o)
 DEP			=	$(SRC_ASM:%.s=$(DEPDIR)/%.d)
 
 ASM_COMP	=	nasm
-ASM_FLAGS	=	-f elf64 -wall -g -O0
+ASM_FLAGS	=	-felf64 -wall -g -O0
 CXXFLAGS	=	-gdbg -O0 $(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MP -MF $(DEPDIR)/$*.d
 RM			=	/bin/rm -rf

@@ -27,7 +27,7 @@ SRC			=	$(addprefix src/,			\
 OBJ			=	$(SRC:%.cpp=$(BUILDIR)/%.o)
 DEP			=	$(SRC:%.cpp=$(DEPDIR)/%.d)
 CXX			=	clang++
-CXXFLAGS	=	-O0 -g -Wall -Werror -Wextra -pedantic #-fsanitize=address -fsanitize=undefined
+CXXFLAGS	=	-O0 -g3 -Wall -Werror -Wextra -fsanitize=address
 CPPFLAGS	=	$(addprefix -I, $(INCLDIR))
 DEPFLAGS	=	-MT $@ -MMD -MP -MF $(DEPDIR)/$*.d
 RM			=	/bin/rm -rf
